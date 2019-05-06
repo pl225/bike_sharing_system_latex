@@ -1,0 +1,25 @@
+\chapter{Proposta de algoritmo para o problema}\label{chp:LABEL_CHP_6}
+
+\par Será definido neste capítulo um novo algoritmo para que seja comparado aquele apresentado no capítulo \ref{chp:LABEL_CHP_3}, que foi modelado de acordo com duas meta-heurísticas, quais sejam a ILS e a SA. Por outro lado, será proposto neste trabalho um que seja estruturado de acordo com os frameworks apontados pela Busca Tabu \citet{glover}.
+
+\section{A Busca Tabu}\label{sec:LABEL_CHP_6_SEC_A}
+
+\par Essa meta-heurística, diferentemente da ILS, para a obtenção de melhores resultados, ancora-se na premissa de que para uma busca ser considerada inteligente, ela deve incorporar uma memória adaptativa, para que haja economia e eficiência ao guiar a busca com informações coletadas durante a sua execução, e ser responsiva, baseando-se na suposição de que uma má estratégia de escolha pode gerar mais informação que uma boa escolha feita de forma aleatória. Assim, esse modelo heurístico permite que boas características de soluções sejam utilizadas ao mesmo tempo que regiões do espaço de busca ainda não visitadas sejam analisadas.
+
+\par Na seção \ref{sec:LABEL_CHP_2_SEC_C} do capítulo \ref{chp:LABEL_CHP_2} pode-se encontrar uma síntese sobre um trabalho que também utilizou a meta-heurística supracitada. O programa produzido em tal pesquisa se utilizou da estrutura de dados \textit{multimap}, que associa um valor a uma chave específica, da linguagem C++ para implementar a memória da Busca Tabu. Tal componente foi implementado para que a seguinte ideia fosse possível: um arco $ab$ qualquer que foi utilizado numa posição $k$ do caminho da última solução encontrada não poderá ser utilizado novamente por um número determinado de iterações. Com isso, diminui-se a probabilidade de se chegar a uma solução já encontrada, visto que os arcos para se chegar a ela são proibidos, possibilitando uma diversificação no processo de investigação de áreas ainda não vistas. A memória que será utilizada no algoritmo a ser proposto utilizará essa mesma ideia, porém, sua implementação não será feita empregando a estrutura de dados mencionada a pouco, pois apesar de fornecer rápido acesso, tal coisa não é feita em tempo constante.
+
+\par A busca local utilizará as mesmas vizinhanças dispostas em \citet{art:REF_ART_1}, assim como o procedimento RVND para a busca local. No entanto, as vizinhanças de perturbação não serão utilizadas, visto que a diversificação da Busca Tabu é feita a partir de uma análise que se permite caminhar por soluções de qualidade inferiores às das melhores encontradas, além de evitar percorrer por áreas percorridas recentemente, ao passo que a meta-heurística ILS modifica a solução atual utilizando movimentos que a levem a uma região um tanto diferente da que fora recentemente observada. Consequentemente, o procedimento RVND teve que sofrer uma pequena adaptação que será detalhada futuramente neste trabalho.
+
+\section{Bitmap}\label{sec:LABEL_CHP_6_SEC_B}
+
+\par Para que a estrutura de dados elaborada neste trabalho seja apresentada, faz-se necessário que o leitor conheça uma estrutura conhecida como mapa de bits, muito utilizada para a representação de conjuntos numéricos sem desperdício de memória e de desempenho. 
+
+\par Um mapa de bits consiste de uma palavra de bits, dependente da arquitetura do computador utilizado, que possui bits ligados ou desligados. Quando empregado para representar conjuntos, um elemento $i$ pertence ao conjunto se o bit na posição $i$ está definido como 1, e 0 em caso contrário. Caso a quantidade de bits da palavra de bits da máquina seja inferior ao número pretendido de elementos que um conjunto precisa armazenar, pode-se utilizar vetores de mapa de bits. Cada posição do vetor é chamada de \textit{naco}, e estes são inicializados com todos os seus bits como $0$.
+
+\par Seja $n$ o tamanho de um conjunto de números naturais $N$ qualquer e $m$ o tamanho da palavra de bits do computador. Logo, o número de nacos necessários para representar $N$ será $\ceil*{\frac{n}{m}}$. Para descobrir o naco ao qual um elemento $i$ pertence, basta fazer $\floor*{\frac{i}{m}}$. Também tem-se que $i \;\%\; m$, no qual o operador $\%$ retorna o resto da divisão de $i$ por $m$, permite descobir o bit do naco ao qual $i$ pertence que deverá ser aceso ou apagado.
+
+\par Para ligar um bit (incluir um elemento $i$ no conjunto), basta descobrir o naco em que se encontra, aqui nomeado como $A$, e então calcular $A = A \;||\; (1 \ll i \;\%\; m)$. Para desligá-lo (excluir um elemento do conjunto), aplica-se $A = A \;\&\; (\sim 1 \ll (i \;\%\; m))$. Para consultar se $i$ pertence ao conjunto, basta descobrir se $(A \;\&\; ( 1 \ll (i \;\%\; m))) \neq 0$.
+
+\par Desta forma, para a implementação da memória da Busca Tabu enunciada no início desse capítulo, será necessário manter um vetor de mapa de bits para cada arco do grafo que modela uma dada instância do problema. Assim, para saber se um arco foi utilizado numa posição $k$ de uma solução recentemente, pode-se verificar se o valor $k$ está presente em seu respectivo conjunto de bits.
+
+\section{Representação da lista tabu}\label{sec:LABEL_CHP_6_SEC_C}

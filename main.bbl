@@ -1,0 +1,127 @@
+\begin{thebibliography}{17}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Brant(2016)]{site:2}
+J.~Brant.
+\newblock As 7 causas mais comuns de congestão viária e as estratégias
+  (exitosas) para enfrentá-la.
+\newblock
+  \url{https://www.archdaily.com.br/br/799252/as-7-causas-mais-comuns-de-congestao-viaria-e-as-estrategias-exitosas-para-enfrenta-la},
+  2016.
+\newblock Acessado em: 2019-02-01.
+
+\bibitem[Bulhões et~al.(2016)Bulhões, Subramanian, G., and G.]{art:REF_ART_4}
+T.~Bulhões, A.~Subramanian, Erd\u{o}gan G., and Laporte G.
+\newblock The static bike relocation problem with multiple vehicles and visits.
+\newblock \emph{European Journal Of Research}, pages 508--523, 2016.
+
+\bibitem[Carvalho(2014)]{site:7}
+C.~Carvalho.
+\newblock O desafio de aumentar a atratividade do transporte público urbano no
+  brasil.
+\newblock
+  \url{http://www.ipea.gov.br/desafios/index.php?option=com_content&view=article&id=2980:catid=28&Itemid=23},
+  2014.
+\newblock Acessado em: 2019-02-01.
+
+\bibitem[CHEMLA et~al.(2013)CHEMLA, Meunier, and Calvo]{art:REF_ART_2}
+D.~CHEMLA, F.~Meunier, and R.~Calvo.
+\newblock Bike sharing systems: Solving the static rebalancing problem.
+\newblock \emph{Discrete Optimization}, pages 120--146, 2013.
+
+\bibitem[CRUZ et~al.(2016)CRUZ, Subramanian, Bruck, and Iori]{art:REF_ART_1}
+F.~CRUZ, A.~Subramanian, B.~Bruck, and Manuel. Iori.
+\newblock Uma abordagem meta-heurística para um problema de rebalanceamento
+  estático em sistemas de compartilhamento de bicicletas.
+\newblock \emph{Simpósio Brasileiro de Pesquisa Operacional - SBPO}, 2016.
+
+\bibitem[Decicino()]{site:1}
+R.~Decicino.
+\newblock Trânsito - problemas atingem grandes cidades.
+\newblock
+  \url{https://educacao.uol.com.br/disciplinas/geografia/transito-problemas-atingem-grandes-cidades.htm}.
+\newblock Acessado em: 2019-02-01.
+
+\bibitem[eCycle()]{site:5}
+eCycle.
+\newblock O que é poluição do ar? conheça causas e tipos.
+\newblock
+  \url{https://www.ecycle.com.br/component/content/article/63-meio-ambiente/2949-poluicao-ar-atmosferia-perigos-problemas-o-que-e-historico-revolucao-industrial-big-smoke-classificacao-poluentes-co2-cfc-so2-no2-ozonio-fontes-naturais-antropogenicas-impactos-saude-meio-ambiente-dicas-para-reduzir.html}.
+\newblock Acessado em: 2019-02-01.
+
+\bibitem[Estipendio(2013)]{site:9}
+M.~Estipendio.
+\newblock Por quê a construção de mais vias não alivia os
+  congestionamentos.
+\newblock
+  \url{https://vadebici.wordpress.com/2013/02/16/por-que-a-construcao-de-mais-ruas-nao-alivia-os-congestionamentos/},
+  2013.
+\newblock Acessado em: 2019-02-01.
+
+\bibitem[Freitas()]{site:6}
+E.~Freitas.
+\newblock Poluição sonora e visual.
+\newblock
+  \url{https://mundoeducacao.bol.uol.com.br/geografia/poluicao-sonora-visual.htm}.
+\newblock Acessado em: 2019-02-01.
+
+\bibitem[Glover and M.(1997)]{glover}
+F.~Glover and Laguna M.
+\newblock \emph{Tabu Search}.
+\newblock Springer US, 1997.
+\newblock ISBN 9781461560890.
+
+\bibitem[Hernández-Pérez and Salazar-González(2004)]{art:REF_ART_3}
+H.~Hernández-Pérez and J.~Salazar-González.
+\newblock A branch-and-cut algorithm for a traveling salesman problem with
+  pickup and delivery.
+\newblock \emph{Discrete Applied Mathematics}, pages 126--139, 2004.
+
+\bibitem[Hernández-Pérez et~al.(2008)Hernández-Pérez, Salazar-González,
+  and I.]{art:REF_ART_5}
+H.~Hernández-Pérez, J.~Salazar-González, and Rodríguez-Martín I.
+\newblock A hybrid graps/vnd heuristic for the one-commodity
+  pickup-and-delivery traveling salesman problem.
+\newblock 2008.
+
+\bibitem[Ideal(2013)]{site:4}
+Trânsito Ideal.
+\newblock Poluição ambiental e o trânsito.
+\newblock
+  \url{http://www.transitoideal.com.br/pt/artigo/4/educador/51/poluicao-ambiental-eo-transito},
+  2013.
+\newblock Acessado em: 2019-02-01.
+
+\bibitem[ITDP(2014)]{book:1}
+ITDP.
+\newblock \emph{Guia de planejamento de Sistemas de Bicicletas Compartilhadas}.
+\newblock 2014.
+
+\bibitem[Paes et~al.(2010)Paes, Subramanian, and Ochi]{art:REF_ART_7}
+B.~Paes, A.~Subramanian, and L.~Ochi.
+\newblock Uma heurística híbrida para o problema do caixeiro viajante com
+  coleta e entrega envolvendo um único tipo de produto.
+\newblock \emph{Simpósio Brasileiro de Pesquisa Operacional - SBPO}, 2010.
+
+\bibitem[Santos(2015)]{site:3}
+T.~Santos.
+\newblock Emissões de poluentes por veículos automotores.
+\newblock
+  \url{https://educacaopublica.cederj.edu.br/artigos/16/7/emisses-de-poluentes-por-veculos-automotores},
+  2015.
+\newblock Acessado em: 2019-02-01.
+
+\bibitem[Época Negócios(2018)]{site:8}
+Época Negócios.
+\newblock Rio de janeiro tem o pior sistema de transportes do mundo, diz
+  estudo.
+\newblock
+  \url{https://epocanegocios.globo.com/Brasil/noticia/2018/07/rio-de-janeiro-tem-o-pior-sistema-de-transportes-do-mundo-diz-estudo.html},
+  2018.
+\newblock Acessado em: 2019-02-01.
+
+\end{thebibliography}

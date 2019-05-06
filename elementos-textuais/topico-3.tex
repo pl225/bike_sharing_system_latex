@@ -1,0 +1,111 @@
+\chapter{Definição do algoritmo base de comparação}\label{chp:LABEL_CHP_3}
+
+\par Para fins de comparação, será utilizado neste estudo o algoritmo proposto em \citet{art:REF_ART_1}. Ele foi modelado conforme as mesmas características definidas no primeiro capítulo deste. O algoritmo será reproduzido aqui e explicado detalhadamente.
+\par Começando pelo algoritmo 1, o procedimento principal. Nele, a heurística ILS é repetida $I_R$ vezes, como pode ser visto na linha 2. Para cada iteração, uma solução $s$ é construída e uma cópia dela é feita, conforme as linhas 3 e 4. Entre as linhas 8 e 19, a heurística \textit{simulated annealing} é executada, decidindo se uma solução $s$ recém-descoberta pelo procedimento RVND deve substituir a solução até então escolhida na iteração $ILS_i$. Em seguida, $s^\lq$ sofre um procedimento de perturbação. Finalmente, ao fim da iteração $i$, a solução $s^*$ é substituída se aquela encontrada pela execução da heurística ILS é melhor do que ela. O custo $f$ de uma solução é dado pela distância necessária para percorrer seu caminho $l$, a saber, $\sum_{i=2}^{n}c_{l_{i-1}},c_{l_i}$.
+\par O algoritmo 2 detalha o procedimento de geração de soluções executado na linha 3 do algoritmo 1. Na inicialização dele, temos o preenchimento da variável $Q^\lq$ com a capacidade máxima do veículo, a construção da lista das estações candidatas que estarão na solução $s$, iniciada sempre no depósito. Entre as linhas 6 e 14, temos a escolha da próxima estação que pode ter sua demanda levada a zero em apenas uma visita. Caso não seja possível encontrá-la, entre as linhas 15 e 23 a estação que conceda o maior fechamento de demanda possível é escolhida, seja de entrega ou de coleta. Se for encontrada mais de uma estação com esse valor máximo, aquela esteja mais perto da última adicionada à solução é escolhida. Esse procedimento constrói apenas soluções viáveis. É importante frisar que uma solução é composta por seu custo, caminho, uma sequência de operações realizadas ao longo do caminho e suas estruturas de dados auxiliares, que serão explicadas posteriormente.
+\par O algoritmo 3 apresenta o procedimento RVND, como consultado em \citet{art:REF_ART_7}. Ele busca numa lista de vizinhanças pré-definida a melhor solução que pode ser encontrada a partir de uma inicial. As vizinhanças serão definidas posteriormente. O algoritmo 4 elucida os passos da perturbação de uma solução, que utilizada duas vizinhanças que serão abordadas num momento oportuno. Entretanto, pode-se adiantar que a perturbação pode produzir soluções viáveis e inviáveis, ao passo que o procedimento RVND, se receber uma solução viável, sempre retornará outra nestas mesmas condições ou a que foi dada como argumento de entrada, se não houver nenhuma válida que a melhore. Se ele receber uma solução inviável, também será procurada uma que seja viável, retornando aquela provida como entrada se não existir nenhuma que se mostre correta. Graças às estruturas de dados definidas em \citet{art:REF_ART_4}, todos os testes necessários para verificar se uma solução produzida a partir de outra mantém a viabilidade (ou se torna viável) são feitos em tempo constante. Elas serão definidas mais tarde. Ademais, se num caminho de uma solução houver visitas consecutivas a uma mesma estação, elas são unificadas em apenas uma visita, o que pode acontecer na produção de soluções nos procedimentos RVND e no de perturbação.
+
+    \begin{algorithm}[H]
+    \caption{ILS-RVND}
+    \begin{algorithmic}[1]
+    \REQUIRE $I_R \in \mathbb{N}, I_{ILS} \in \mathbb{N}, T \in \mathbb{N}, \alpha \in \mathbb{R}$
+    \ENSURE A melhor solução $s^*$ encontrada no procedimento
+    \STATE $f^* \leftarrow \infty$
+    \FOR{\(i \leftarrow 0\) até \(I_R\)}
+        \STATE $s \leftarrow GeraSolucaoInicial$
+        \STATE $s^\lq \leftarrow s$
+        \STATE $custoAtual \leftarrow f(s)$
+        \STATE $iterILS \leftarrow 0$
+        \STATE $T \leftarrow T_0$
+        \WHILE{$iterILS \leq I_{ILS}$}
+            \STATE $s \leftarrow RVND(s, custoAtual)$
+            \STATE $\delta \leftarrow f(s) - f(s^\lq)$
+            \IF{$\delta < 0$}
+                \STATE $s^\lq \leftarrow s$
+                \STATE $iterILS \leftarrow 0$
+            \ELSE
+                \STATE $x \in [0, 1]$
+                \IF{$T > 0\; \land\; x < e^{-\delta/T}$}
+                    \STATE $s^\lq \leftarrow s$
+                \ENDIF
+            \ENDIF
+            \STATE $s \leftarrow perturba(s^\lq)$
+            \STATE $custoAtual \leftarrow f(s)$
+            \STATE $iterILS \leftarrow iterILS + 1$
+            \STATE $T \leftarrow T \times \alpha$
+        \ENDWHILE
+        \IF{$f(s^\lq) < f^*$}
+            \STATE $s^* \leftarrow s^\lq$
+            \STATE $f^* \leftarrow f(s^\lq)$
+        \ENDIF
+    \ENDFOR
+    \RETURN $s^*$
+    \end{algorithmic}
+    \end{algorithm}
+    
+    \begin{algorithm}[H]
+    \caption{Gera Solucão Inicial}
+    \begin{algorithmic}[1]
+    \STATE $Q\lq \leftarrow Q$
+    \STATE $s \leftarrow \{0\}$
+    \STATE $OV \leftarrow $ \{Todas as estações que possuem demanda seguindo uma ordem aleatória\} $\cup$ \{Estações que não possuem demanda escolhidas aleatoriamente\}
+    \REPEAT
+        \STATE $inseriu \leftarrow \FALSE$
+        \FORALL{$i \in OV$}
+            \IF{(\,$d_i \leq 0\; \land\; \left|d_i\right| \leq Q^\lq)\,
+                \lor (\,d_i > 0\; \land\; Q-Q^\lq \geq d_i)\,$}
+                \STATE $s \leftarrow s \cup \{i\}$
+                \STATE $Q^\lq \leftarrow Q^\lq + d_i$
+                \STATE Retire $i$ de $OV$
+                \STATE $inseriu \leftarrow \TRUE$
+                \STATE $break$
+            \ENDIF
+        \ENDFOR
+        \IF{$inseriu = \FALSE$}
+            \FORALL{$j \in OV$}
+                \STATE $calcule troca_j$
+            \ENDFOR
+            \STATE $c \leftarrow max\{troca_j\; \;|\; \;j \in troca\}$
+            \STATE $s \leftarrow s \cup \{c\}$
+            \STATE Atualize $d_i$
+            \STATE Atualize $Q^\lq$
+        \ENDIF
+    \UNTIL{$OV \neq \emptyset$}
+    \STATE $s \cup \{0\}$
+    \RETURN $s$
+    \end{algorithmic}
+    \end{algorithm}
+    
+    \begin{algorithm}[H]
+    \caption{RVND}
+    \begin{algorithmic}[1]
+    \REQUIRE Solução $s$
+    \ENSURE A melhor solução $s^*$ encontrada na busca
+    \STATE Inicializar lista de vizinhanças $LN$
+    \STATE $s^* \leftarrow s$
+    \WHILE{$LN \neq \emptyset$}
+        \STATE Escolha uma vizinhança $N \in LN$ aleatoriamente
+        \STATE Encontre o melhor vizinho $s^\lq$ de $s^* \in N$
+        \IF{$f(\,s^\lq)\, < f(\,s^*)\,$}
+            \STATE $s^* \leftarrow s^\lq$
+        \ELSE
+            \STATE Remova $N$ de $LN$
+        \ENDIF
+    \ENDWHILE
+    \RETURN $s^*$
+    \end{algorithmic}
+    \end{algorithm}
+    
+    \begin{algorithm}[H]
+    \caption{perturba}
+    \begin{algorithmic}[1]
+    \REQUIRE Solução $s$
+    \ENSURE Uma solução $s$ que sofreu uma perturbação
+    \STATE $i \in [0,1]$
+    \IF{$i = 0$}
+        \RETURN $doubleBridge(s)$
+    \ELSE
+        \RETURN $splitP(s)$
+    \ENDIF
+    \end{algorithmic}
+    \end{algorithm}

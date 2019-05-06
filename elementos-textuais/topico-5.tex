@@ -1,0 +1,126 @@
+\chapter{Estruturas de vizinhança}\label{chp:LABEL_CHP_5}
+
+\par Neste capítulo serão tratadas as estruturas de vizinhança utilizadas nos procedimentos RVND e de perturbação. Ela consiste de um determinado movimento feito sobre uma solução, testando-se todas as possibilidades, a fim de encontrar uma que seja a mais proveitosa que, neste caso, é a que possui um menor custo e que ainda seja viável. Os custos entre as arestas que serão utilizados para calcular o custo final dos vários exemplos que serão feitos são oriundos da instância \textit{n20q10} definida em \citet{art:REF_ART_3} e reutilizada em \citet{art:REF_ART_5}.
+
+\section{Vizinhanças da busca local}\label{sec:LABEL_CHP_5_SEC_A}
+
+\par Nesta seção serão apresentadas as vizinhanças utilizadas no procedimento RVND, que como já dito, sempre retorna soluções viáveis ou aquela dada como argumento de entrada se não houver nenhuma solução válida que a melhore.
+
+\subsection{2-OPT}\label{sec:LABEL_CHP_5_SUBSEC_A}
+
+\par O movimento desta vizinhança é bastante simples: dadas duas posições $i$ e $j$ de um caminho qualquer, com $j > i + 2$, a subsequência entre esses pontos é invertida. Assim, o objetivo é encontrar essas duas posições que resultem numa subsequência 
+    
+    \begin{gather}
+        \sigma^\lq = \sigma_{(\,0, i)\,}\; \oplus\; \overleftarrow{\sigma}_{(\,i+1, j-1)\,}\; \oplus\; \sigma_{(\,j, |\sigma|-1)\,}
+    \end{gather}
+    
+que seja viável e tenha um custo $f(\,\sigma^\lq)\, < f(\,\sigma)\,$. Sabendo que além do custo de $\sigma$ ser conhecido, também é sabido o custo $c_{(\,a, b)\,} \forall\; a, b \in V$, assim, é possível saber o custo do novo caminho em tempo constante sem a necessidade de calculá-lo do zero. Este custo se dá por:
+
+    \begin{gather}
+        f(\,\sigma^\lq)\, = f(\,\sigma)\, - (\,c_{(\,i, i+1)\,} + c_{(\,j-1, j)\,})\, + (\,c_{(\,i, j-1)\,} + c_{(\,i+1, j)\,})\,
+    \end{gather}
+    
+sendo $i$ e $j$ vértices nas posições $i$ e $j$ do caminho da solução. A sequência de operações associada ao pedaço que será invertido deve sofrer a mesma operação para que continue a caracterizar o caminho representado pela solução. Para fins de exemplificação, usemos o caminho apresentado na figura \ref{fig:my_label} e tomemos $i = 0$ e $j = 5$. Para verificar se essa é uma operação possível, devemos nos atentar às ADSs associadas às subsequências $\sigma_{(\,0, 0)\,}$, $\sigma_{(\,1, 4)\,}$ e $\sigma_{(\,5, 8)\,}$.
+
+\par Sabendo que $q_{sum}(\,\sigma_{(\,0, 0)\,})\, = 0$ é maior ou igual a $l_{min}(\,\overleftarrow{\sigma}_{(\,1, 4)\,})\, = 0$ e menor ou igual a $l_{max}(\,\overleftarrow{\sigma}_{(\,1, 4)\,})\, = 0$, é possível realizar a concatenação dessas subsequências. Ao concatená-las, temos que $q_{sum}(\,\sigma_{(\,0, 0)\,} \oplus \overleftarrow{\sigma}_{(\,1, 4)\,})\,)\, = 0 + 8 = 8$ que é maior ou igual a $l_{min}(\,\sigma_{(\,5, 8)\,})\, = 8$ e menor ou igual a $l_{max}(\,\sigma_{(\,5, 8)\,})\, = 8$, o que nos leva a concluir que o movimento analisado é válido. O custo do caminho produzido pelo movimento, tendo em vista que $f(\,\sigma)\, = 3899,\; c_{(\,0, 1)\,} = 418,\; c_{(\,4, 5)\,} = 274,\; c_{(\,0, 4)\,} = 123$ e $c_{(\,1, 5)\,} = 183$, conduz a $f(\,\sigma^\lq)\, = 3513$, melhorando o custo da solução de exemplo.
+
+\subsection{Swap}\label{sec:LABEL_CHP_5_SUBSEC_B}
+
+\par Esta vizinhança se caracteriza pelo seguinte movimento: dadas duas posições $i$ e $j$ de um caminho qualquer, com $j > i$, os vértices nessas posições são trocados, isto é, $\sigma_{(\,i, i)\,} \Longleftrightarrow \sigma_{(\,j, j)\,}$. Portanto, o objetivo é encontrar essas duas posições que resultem numa subsequência
+
+    \begin{gather} \label{swapeq:1}
+        \sigma^\lq = \sigma_{(\,0, i - 1)\,}\; \oplus\; \sigma_{(\,j, j)\,}\; \oplus\; \sigma_{(\,i+1, j-1)\,}\; \oplus\; \sigma_{(\,i, i)\,}\;
+        \oplus\; \sigma_{(\,j+1, |\sigma| - 1)\,}\;
+    \end{gather}
+    
+que seja viável e tenha um custo $f(\,\sigma^\lq)\, < f(\,\sigma)\,$. É importante notar que se $j = i + 1$, a subsequência $\sigma_{(\,i+1, j-1)\,}$ não existirá e teremos:
+
+    \begin{gather} \label{swapeq:2}
+        \sigma^\lq = \sigma_{(\,0, i - 1)\,}\; \oplus\; \sigma_{(\,j, j)\,}\;  \oplus\; \sigma_{(\,i, i)\,}\;
+        \oplus\; \sigma_{(\,j+1, |\sigma| - 1)\,}\;
+    \end{gather}
+
+Podemos calcular o novo custo em tempo constante para o caso \ref{swapeq:1} a partir de:
+
+    \begin{gather} 
+    \begin{split}
+        f(\,\sigma^\lq)\,& = f(\,\sigma)\, + (\,c_{(\,i-1, j)\,} + c_{(\,j, i+1)\,} + c_{(\,j-1, i)\,} + c_{(\,i, j+1)\,})\, -\\
+                         & \quad (\,c_{(\,i-1, i)\,} +       c_{(\,i, i+1)\,} + c_{(\,j-1, j)\,} + c_{(\,j, j+1)\,})\,
+    \end{split}
+    \end{gather}
+    
+E para \ref{swapeq:2} teremos:
+
+    \begin{gather}
+        f(\,\sigma^\lq)\, = f(\,\sigma)\, + (\,c_{(\,i-1, j)\,}  + c_{(\,i, j+1)\,})\, - (\,c_{(\,i-1, i)\,} + c_{(\,j, j+1)\,})\,
+    \end{gather}
+
+Vamos agora aplicar um exemplo com $i=4$ e $j=5$ no caminho da figura \ref{fig:my_label}. Como será reproduzido o caso \ref{swapeq:2}, iremos nos atentar às ADSs associadas às subsequências $\sigma_{(\,0, 3)\,}$, $\sigma_{(\,5, 5)\,}$, $\sigma_{(\,4, 4)\,}$ e $\sigma_{(\,6, 8)\,}$. Primeiramente, notemos que $q_{sum}(\,\sigma_{(\,0, 3)\,})\, = 4 \geq l_{min}(\,\sigma_{(\,5, 5)\,})\, = 1$ e $q_{sum}(\,\sigma_{(\,0, 3)\,})\, = 4 \leq l_{max}(\,\sigma_{(\,5, 5)\,})\, = 8$, o que nos permite concatenar essas duas primeiras subsequências. Assim, prosseguimos com $q_{sum}(\,\sigma_{(\,0, 3)\,} \oplus \sigma_{(\,5, 5)\,})\, = 4 + (\,-1)\, = 3$, que está no intervalo $0 = l_{min}(\,\sigma_{(\,4, 4)\,})\, \leq 3 \leq 4 = l_{max}(\,\sigma_{(\,4, 4)\,})\,$, que nos permite chegar a $q_{sum}(\,\sigma_{(\,0, 3)\,} \oplus \sigma_{(\,5, 5)\,} \oplus \sigma_{(\,4, 4)\,})\, = 4 + (\,-1)\, + 4 = 7$. Finalmente, sabemos que $7 = l_{min}(\,\sigma_{(\,6, 8)\,})\, \leq 7 \leq 8 = l_{max}(\,\sigma_{(\,6, 8)\,})\,$, que nos permite dizer que o movimento inspecionado é válido.
+
+\par O custo do caminho produzido pelo movimento, tendo em vista que $f(\,\sigma)\, = 3899,\; c_{(\,3, 5)\,} = 198,\; c_{(\,4, 6)\,} = 321,\; c_{(\,3, 4)\,} = 337$ e $c_{(\,5, 6)\,} = 568$, conduz a $f(\,\sigma^\lq)\, = 3513$, melhorando o custo da solução de exemplo.
+
+\subsection{or-OPT-k}\label{sec:LABEL_CHP_5_SUBSEC_C}
+
+\par Esta seção trata de quatro movimentos que foram aqui reunidos por apresentarem a mesma ideia. Dadas duas posições $i$ e $j$, deseja-se retirar um número determinado de vértices começando de $i$ para inserí-los após a posição $j$, a saber, $j+1$. O total de vértices a ser movido dita qual é a vizinhança a qual nos referimos. O número $k \in \{1, 2, 3, 4\}$ indica tal quantidade, sendo $k=1$ também conhecido como \textit{reinserção}. Caso $i < j$, é necessário que $j-i >= k + 1$, ou seja, deve haver vértices suficientes para que a tranferência seja feita. E também deve-se garantir que $i > j + 1$ para que haja algum movimento a ser realizado. Similarmente às vizinhanças predecessoras, o objetivo é encontrar essas duas posições que resultem numa sequência
+    
+    \begin{numcases}{\sigma^\lq =}
+      \sigma_{(\,0, i - 1)\,}\; \oplus\; \sigma_{(\,i+k, j)\,}\; \oplus\; \sigma_{(\,i, i+k-1)\,}\; \oplus\; \sigma_{(\,j+1, |\sigma| - 1)\,}, & se $i<j$ \\
+      \sigma_{(\,0, j)\,}\; \oplus\; \sigma_{(\,i, i+k-1)\,}\; \oplus\; \sigma_{(\,j+1, i-1)\,}\; \oplus\; \sigma_{(\,i+k, |\sigma| - 1)\,}, & se não
+    \end{numcases}
+    
+que seja viável e tenha um custo $f(\,\sigma^\lq)\, < f(\,\sigma)\,$. O custo pode ser calculado para os dois casos da seguinte forma:
+
+    \begin{gather}
+        \begin{split}
+        f(\,\sigma^\lq)\, = & f(\,\sigma)\, - (\,c_{(\,i-1, i)\,}  + c_{(\,i+k-1, i+k)\,} + c_{(\,j, j+1)\,})\, +\\ & (\,c_{(\,i-1, i+k)\,} + c_{(\,j, i)\,} + c_{(\,i+k-1, j+1)\,})\,
+        \end{split}
+    \end{gather}
+
+Agora, vamos aplicar um exemplo com $k=2$, $i=3$ e $j=5$ sobre o caminho da figura \ref{fig:my_label}. Como $i<j$, devemos nos atentar às ADSs associadas às subsequências $\sigma_{(\,0, 2)\,}$, $\sigma_{(\,5, 5)\,}$, $\sigma_{(\,3, 4)\,}$ e $\sigma_{(\,6, 8)\,}$. Começamos descobrindo que $q_{sum}(\,\sigma_{(\,0, 2)\,})\, = 8$, que é maior que $l_{min}(\,\sigma_{(\,5, 5)\,})\, = 1$ e igual a $l_{max}(\,\sigma_{(\,5, 5)\,})\, = 8$. Assim, concatenando essas subsequências, temos $q_{sum}(\,\sigma_{(\,0, 2)\,} \oplus\, \sigma_{(\,5, 5)\,})\, = 8 + (\,-1)\, = 7$, que nos permite verificar que é maior que $l_{min}(\,\sigma_{(\,3, 4)\,})\, = 4$ e menor que $l_{max}(\,\sigma_{(\,3, 4)\,})\, = 8$. Realizando a concatenação, acabamos em $q_{sum}(\,\sigma_{(\,0, 2)\,} \oplus\, \sigma_{(\,5, 5)\,} \oplus\, \sigma_{(\,3, 4)\,})\, = 8 + (\,-1)\, + 0 = 7$. Por último, as últimas condições de concatenação são satisfeitas: $7 \geq l_{min}(\,\sigma_{(\,6, 8)\,})\, = 7$ e $7 \leq l_{max}(\,\sigma_{(\,6, 8)\,})\, = 8$, provando que o movimento sugerido é válido. O custo do caminho resultante, sabendo que $f(\,\sigma)\, = 3899,\; c_{(\,2, 3)\,} = 521,\; c_{(\,4, 5)\,} = 274,\; c_{(\,5, 6)\,} = 568, c_{(\,2, 5)\,} = 701, c_{(\,5, 3)\,} = 198$ e $c_{(\,4, 6)\,} = 321$, conduz a $f(\,\sigma^\lq)\, = 3756$, melhorando o custo da solução de exemplo.
+
+\subsection{Split}\label{sec:LABEL_CHP_5_SUBSEC_D}
+
+\par Falemos agora sobre a última vizinhança da busca local. Durante o caminho de uma solução, consideremos qualquer visita a uma estação cuja operação tenha sido de entrega ou de coleta, mas que tenha envolvido mais de uma bicicleta. Esta visita é fracionada da seguinte forma: uma e somente uma bicicleta envolvida na operação é removida e inserida em outro ponto do caminho, produzinho uma nova visita à estação cuja operação envolva um único produto. Assim, dadas duas posições $i$ e $j$, com $i \neq j$, o objetivo é encontrar uma subsequência
+
+    \begin{numcases}{\sigma^\lq =}
+      \sigma_{(\,0, i - 1)\,}\; \oplus\; \sigma_{(\,i, i)\,}^{-1}\; \oplus\; \sigma_{(\,i+1, j-1)\,}\; \oplus\; \sigma_{(\,i, i)\,}^1
+      \oplus\; \sigma_{(\,j, |\sigma| - 1)\,}, & se $i<j$ \\
+      \sigma_{(\,0, j-1)\,}\; \oplus\; \sigma_{(\,i, i)\,}^1\;  \oplus\; \sigma_{(\,j, i-1)\,}\; \oplus\; \sigma_{(\,i, i)\,}^{-1}\;
+      \oplus\; \sigma_{(\,i+1, |\sigma| - 1)\,}, & se não
+    \end{numcases}
+    
+que seja viável e tenha um custo $f(\,\sigma^\lq)\, < f(\,\sigma)\,$. O termo $\sigma_{(\,i,i)\,}^1$ representa a operação unitária sobre uma bicicleta, seja ela de coleta ou entrega, ao passo que $\sigma^{-1}_{(\,i, i)\,}$ se refere à transação com a perda (ou ganho) de menos um produto, cada um em relação à subsequência $\sigma_{(\,i,i)\,}$. Como o custo para visitar uma estação a partir da mesma é zero, não é permitido que $\sigma_{(\,i,i)\,}=\sigma_{(\,j, j)\,}$, $\sigma_{(\,i,i)\,}=\sigma_{(\,j-1, j-1)\,}$ e $\sigma_{(\,i-1,i-1)\,}=\sigma_{(\,j, j)\,}$. O custo pode ser calculado da forma que se segue
+
+    \begin{gather}
+        f(\,\sigma^\lq)\, = f(\,\sigma)\, + (\,c_{(\,j-1, i)\,}  + c_{(\,i, j)\,})\, - c_{(\,j-1, j)\,}
+    \end{gather}
+    
+\par Para fins de exemplificação, tomemos $i=1$ e $j=4$ e o caminho da figura \ref{fig:my_label}. Por conta das posições escolhidas, devemos nos ater às ADSs associadas às subsequências $\sigma_{(\,0, 0)\,}$, $\sigma_{(\,1, 1)\,}^{-1}$, $\sigma_{(\,2, 3)\,}$, $\sigma_{(\,1, 1)\,}^1$ e $\sigma_{(\,4, 8)\,}$, visto que $i<j$. Sabemos que a operação feita na visita à estação representada pela subsequência $\sigma_{(\,1, 1)\,}$ é de coleta. Assim, calculemos as informações necessárias: $q_{sum}(\,\sigma_{(\,i, i)\,}^{-1})\, = 2 - 1 = 1$, $l_{min}(\,\sigma_{(\,i, i)\,}^{-1})\, = 0$, $l_{max}(\,\sigma_{(\,i, i)\,}^{-1})\, = 8 - 1 = 7$, $q_{sum}(\,\sigma_{(\,i, i)\,}^{1})\, = 1$, $l_{min}(\,\sigma_{(\,i, i)\,}^{1})\, = 0$ e $l_{max}(\,\sigma_{(\,i, i)\,}^{1})\, = 8 - 1 = 7$. Agora podemos prosseguir, concluindo que $q_{sum}(\,\sigma_{(\,0, 0)}\,)\, = 0$ é igual a $l_{min}(\,\sigma_{(\,0, 0)}^{-1})\,$ e menor que $l_{max}(\,\sigma_{(\,0, 0)})\,$. Podemos então concatenar essas duas subsequências, chegando a $q_{sum}(\,\sigma_{(\,0, 0)\,} \oplus \sigma_{(\,1, 1)\,}^{-1})\, = 0 + 1 = 1$, que é maior que $l_{min}(\,\sigma_{(\,2, 3)})\, = 0$ e menor que $l_{max}(\,\sigma_{(\,2, 3)})\, = 2$. Prosseguimos então com $q_{sum}(\,\sigma_{(\,0, 0)\,} \oplus\, \sigma_{(\,1, 1)\,}^{-1}\, \oplus\, \sigma_{(\,2, 3)})\, = 0 + 1 + 2 = 3$, maior e menor que $l_{min}(\,\sigma_{(\,i, i)\,}^{1})\,$ e $l_{max}(\,\sigma_{(\,i, i)\,}^{1})\,$, respectivamente. Fazendo $q_{sum}(\,\sigma_{(\,0, 0)\,} \oplus\, \sigma_{(\,1, 1)\,}^{-1}\, \oplus\, \sigma_{(\,2, 3)} \oplus\, \sigma_{(\,1, 1)\,}^{-1})\, = 0 + 1 + 2 + 1 = 4$, que, finalmente, é igual a $l_{min}(\,\sigma_{(\,4, 8)})\, = l_{max}(\,\sigma_{(\,4, 8)})\, = 4$. Assim sendo, o movimento realizado é válido. O custo pode ser calculado a partir dos seguintes valores $f(\,\sigma)\, = 3899,\; c_{(\,3, 1)\,} = 223,\; c_{(\,1, 4)\,} = 452$ e $c_{(\,3, 4)\,} = 337$, que conduzem a $f(\,\sigma^\lq)\, = 4237$, piorando o custo da solução de exemplo. Quando, mais à frente, forem apresentados os resultados dos experimentos, será falado sobre o desempenho dessa vizinhança, pois, teoricamente, ao adicionar uma visita ao caminho de uma solução, dificilmente seu custo será diminuído.
+
+
+\section{Vizinhanças de perturbação}\label{sec:LABEL_CHP_5_SEC_B}
+
+\par Nesta seção serão apresentadas as vizinhanças utilizadas no procedimento de perturbação, que possui altas chances de produzir soluções inviáveis.
+
+\subsection{Split-p}\label{sec:LABEL_CHP_5_SUBSEC_E}
+
+\par Essa é igual à vizinhança introduzida na seção \ref{sec:LABEL_CHP_5_SUBSEC_D}. Porém, nenhuma das análises de prevenção contra soluções inviáveis é feita. Assim, basta que a solução produzida tenha um custo menor que o da original.
+
+\subsection{Double Bridge}\label{sec:LABEL_CHP_5_SUBSEC_F}
+
+\par Esta vizinhança, utilizada em \citet{art:REF_ART_1}, porém esmiuçada melhor em \citet{art:REF_ART_7}, promove o seguinte: duas subsequências, de qualquer tamanho, são permutadas, isto é, são colocadas uma no lugar da outra. Desta forma, dadas 4 posições $p_1, p_2, p_3$ e $p_4$, escolhidas aleatoriamente, respeitando as condições $1 \leq p_1 \leq |\sigma| - 5,\, p_1 \leq p_2 \leq |\sigma| - 4,\, p_2 < p_3 \leq |\sigma| - 3$ e $p_3 \leq p_4 \leq |\sigma| - 2$, uma subsequência
+
+    \begin{numcases}{\sigma^\lq =}
+      \sigma_{(\,0, p_1 - 1)\,}\; \oplus\; \sigma_{(\,p_3, p_4)\,}\; \oplus\; \sigma_{(\,p_2 + 1, p_3 - 1)\,}\; \oplus\; \sigma_{(\,p_1, p_2)\,}
+      \oplus\; \sigma_{(\,p_4 + 1, |\sigma| - 1)\,}, & se $p_3 - p_2 > 1$ \\
+      \sigma_{(\,0, p_1 - 1)\,}\; \oplus\; \sigma_{(\,p_3, p_4)\,}\; \oplus\; \sigma_{(\,p_1, p_2)\,} \oplus\; \sigma_{(\,p_4 + 1, |\sigma| - 1)\,}, & se não
+    \end{numcases}
+    
+podendo não ser viável e não tendo um custo menor que o da sequência original. Tal custo pode ser calculado como $f(\sigma^\lq) = f(\sigma) - (c_{(p_1 - 1, p_1)} + c_{(p_4, p_4 + 1)}) + (c_{(p_1 - 1, p_3)} + c_{(p_2, p_4 + 1)})$. Ademais, temos:
+
+    \begin{numcases}{f(\sigma^\lq) = f(\sigma^\lq) -}
+        (c_{(p_2, p_2 + 1)} + c_{(p_3 - 1, p_3)}) - (c_{(p_4, p_2 +1)} + c_{(p_3 - 1, p_1)}), & se $p_3 - p_2 > 1$ \\
+        (c_{(p_2, p_3)}) - (c_{(p_4, p_1)}, & se não
+    \end{numcases}
+    
+A título de exemplo, atribuamos os sequintes valores $p_1 = 2, p_2 = 3, p_3 = 4$ e $p_4 = 5$. Como $p_3 - p_2= 4 - 3 = 1$ não é maior que $1$, precisamos apenas de $f(\,\sigma)\, = 3899, c_{1, 2} = 733, c_{5, 6} = 568, c_{1, 4} = 452, c_{3, 6} = 658, c_{3, 4} = 337$ e $c_{5, 2} = 701$ para chegar a $f(\,\sigma^lq)\, = 4072$.

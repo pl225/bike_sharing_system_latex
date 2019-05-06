@@ -1,0 +1,141 @@
+\documentclass{projetofinal-dcc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%P A C O T E S
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Adicione aqui seus pacotes
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{cases}
+\usepackage{mathtools}
+
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand\extralabel[4][0mm]{\node[label={[label distance=#1]#2:#3}] at (#4){};}
+
+% Renomeação dos comandos de algoritmo
+\floatname{algorithm}{Algoritmo}
+\renewcommand{\algorithmicrequire}{\textbf{Entrada:}}
+\renewcommand{\algorithmicensure}{\textbf{Saída:}}
+\renewcommand{\algorithmicend}{\textbf{fim}}
+\renewcommand{\algorithmicif}{\textbf{se}}
+\renewcommand{\algorithmicthen}{\textbf{então}}
+\renewcommand{\algorithmicelse}{\textbf{se não}}
+\renewcommand{\algorithmicfor}{\textbf{para}}
+\renewcommand{\algorithmicforall}{\textbf{para cada}}
+\renewcommand{\algorithmicdo}{\textbf{faça}}
+\renewcommand{\algorithmicwhile}{\textbf{enquanto}}
+\renewcommand{\algorithmicrepeat}{\textbf{repita}}
+\renewcommand{\algorithmicuntil}{\textbf{até que}}
+\renewcommand{\algorithmicreturn}{\textbf{retorna}}
+\renewcommand{\algorithmictrue}{\textbf{verdadeiro}}
+\renewcommand{\algorithmicfalse}{\textbf{falso}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%I N I C I O  D O  D O C U M E N T O
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% tÃ­tulo da tese Ã© obrigatÃ³rio
+\title{Estudo de caso do problema de rebalanceamento est{\'a}tico de
+bicicletas}
+
+% autor Ã© obrigatÃ³rio; mÃ¡ximo de 3 autores
+\author{Matheus Abreu da
+Costa Corr{\^e}a}{\input{elementos-pretextuais/agradecimentos}}
+%\author{Nome completo aluno 2}{\input{elementos-pretextuais/agradecimentos}}
+%\author{Nome completo aluno 3}{\input{elementos-pretextuais/agradecimentos}}
+
+% orientador Ã© obrigatÃ³rio
+\advisor[Prof.]{Adria Lyra,~D.Sc.}{}
+
+% co-orientador Ã© opcional
+%\coadvisor[Prof.]{Nome do co-orientador,~M.Sc.}{}
+
+% mÃ¡ximo de 3 integrantes da banca (orientador e co-orientador jÃ¡ sÃ£o adicionados automaticamente)
+\banca[Prof.]{Nome do participante banca 1,~D.Sc.}{COPPE~-~UFRJ}
+\banca[Prof.]{Nome do participante banca 2,~Ph.D.}{COPPE~-~UFRJ}
+%\banca[Prof.]{Nome do participante banca 3,~Ph.D.}{COPPE~-~UFRJ}
+
+\location{Rio~de~Janeiro}{RJ}{Brasil}
+
+% mÃªs e ano de defesa
+\date{Julho}{2019}
+\maketitle
+
+\startdocument
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%A G R A D E C I M E N T O S
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\makethankspage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%R E S U M O
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}{
+  \input{elementos-pretextuais/resumo}
+}
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%A B S T R A C T
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{englishabstract}{
+  \input{elementos-pretextuais/abstract}
+}
+\end{englishabstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%L I S T A S
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Figuras
+\makefigurespage
+
+% Tabelas
+\maketablespage
+
+% Algoritmos
+\makelistingspage
+
+% Abreviaturas (devem estar em ordem alfabÃ©tica)
+\makeabrevpage{\input{elementos-pretextuais/abreviaturas}}
+
+% SÃ­mbolos (devem estar em ordem alfabÃ©tica)
+%\makesymbolspage{\input{elementos-pretextuais/simbolos}}
+
+% SumÃ¡rio 
+\maketocpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%C O N T E Ãš D O
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\startcontent
+\input{elementos-textuais/topico-1}
+\input{elementos-textuais/topico-2}
+\input{elementos-textuais/topico-3}
+\input{elementos-textuais/topico-4}
+\input{elementos-textuais/topico-5}
+\input{elementos-textuais/topico-6}
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% B I B L I O G R A F I A
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Retirar esta parte se o trabalho nÃ£o tiver bibliografia
+\makebibspage{abnt}{elementos-postextuais/referencias}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A P E N D I C E
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Retirar esta parte se o trabalho nÃ£o tiver anexos
+\appendix
+\input{elementos-postextuais/apendice}
+
+\end{document}

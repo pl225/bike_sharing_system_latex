@@ -1,0 +1,81 @@
+\chapter{Auxiliary Data Structures}\label{chp:LABEL_CHP_4}
+\par Neste capítulo será apresentada a estrutura de dados definida em \citet{art:REF_ART_4}, que foi baseada nos conceitos e ideias apontados por \citet{art:REF_ART_3}, utilizada para melhorar as heurísticas utilizadas em \citet{art:REF_ART_1} com o intuito de diminuir o esforço computacional, o tempo de execução do algoritmo e, em especial, os testes necessários para verificar se um movimento de uma vizinhança sobre o caminho de uma solução produz uma que seja viável.
+
+\section{Definição das ADSs}\label{sec:LABEL_CHP_4_SEC_A}
+\par Seja $\sigma = (\, \sigma_{(\,0)\,}, \sigma_{(\,1)\,}, ..., \sigma_{(\,|\sigma| - 1)\,})\,$ uma subsequência do caminho de uma solução S e $\overleftarrow{\sigma}$ a subsequência associada ao caminho inverso dela. Seja também $\sigma_{i, j}$ a subsequência de $\sigma$ que começa na posição $i$ e termina na posição $j$, ou seja, $\sigma_{i, j} = (\, \sigma_{(\,i)\,}, ..., \sigma_{(\,j)\,})\,$. Finalmente, seja $q^{\lq}_{\sigma_{(\,i)\,}}$ a quantidade de bicicletas entregues ou coletadas na visita à estação $i$. A partir dessas variáveis, temos outras que podem ser vistas abaixo:
+
+    \begin{itemize}
+        \item $q_{sum}(\,\sigma)\, = \sum^{|\sigma|-1}_{i=0}q^{\lq}_{\sigma_{(\,i)\,}}$, que se constitui pela soma cumulativa de cargas entregues e coletadas;
+        \item $q_{min}(\,\sigma)\, = min\{0, q_{sum}(\,\sigma_{0, 0})\,, q_{sum}(\,\sigma_{0, 1})\, ..., q_{sum}(\,\sigma_{0, |\sigma|-1})\,\}$ que acaba por ser a menor carga acumulada na sequência;
+        \item $q_{max}(\,\sigma)\, = max\{0, q_{sum}(\,\sigma_{0, 0})\,, q_{sum}(\,\sigma_{0, 1})\, ..., q_{sum}(\,\sigma_{0, |\sigma|-1})\,\}$ que é a carga máxima acumulada;
+        \item $l_{min}(\,\sigma)\, = -q_{min}(\,\sigma)\,$ que é o fluxo mínimo de carga que pode entrar na sequência a fim de manter a sua viabilidade (ou para evitar que a inviabilidade cresça);
+        \item $l_{max}(\,\sigma)\, = Q -q_{max}(\,\sigma)\,$ que é o fluxo máximo de carga que pode entrar na sequência a fim de manter a sua viabilidade (ou para evitar que a inviabilidade cresça).
+    \end{itemize}
+    
+\par Felizmente, todas as variáveis citadas acima podem ser calculadas em tempo constante para a sequência inversa $\overleftarrow{\sigma}$, fazendo desnecessário o seu armazenamento. O modo de cálculá-las segue adiante:
+
+    \begin{itemize}
+        \item $q_{sum}(\,\overleftarrow{\sigma})\, = q_{sum}(\,\sigma)\,$;
+        \item $q_{min}(\,\overleftarrow{\sigma})\, = q_{sum}(\,\sigma)\, - q_{max}(\,\sigma)\,$;
+        \item $q_{max}(\,\overleftarrow{\sigma})\, = q_{sum}(\,\sigma)\, - q_{min}(\,\sigma)\,$;
+        \item $l_{min}(\,\overleftarrow{\sigma})\, = -q_{sum}(\,\sigma)\, + q_{max}(\,\sigma)\,$;
+        \item $l_{max}(\,\overleftarrow{\sigma})\, = Q -q_{sum}(\,\sigma)\, + q_{min}(\,\sigma)\,$ .
+    \end{itemize}
+    
+\par Além dos cálculos em tempo constante das variáveis em relação ao caminho inverso, também foi definido o operador $\oplus$, que se refere à concatenação de duas subsequências quaisquer. Para a concatenação de duas subsequências, todas as variáveis anteriores podem ser computadas em tempo constante de acordo com as equações abaixo:
+
+    \begin{itemize}
+        \item $q_{sum}(\,\sigma^1 \oplus \sigma^2)\, = q_{sum}(\,\sigma^1)\, + q_{sum}(\,\sigma^2)\,$;
+        \item $q_{min}(\,\sigma^1 \oplus \sigma^2)\, = min\{q_{min}(\,\sigma^1)\,, q_{sum}(\,\sigma^1)\, + q_{min}(\,\sigma^2)\,\}$;
+        \item $q_{max}(\,\sigma^1 \oplus \sigma^2)\, = max\{q_{max}(\,\sigma^1)\,, q_{sum}(\,\sigma^1)\, + q_{max}(\,\sigma^2)\,\}$;
+        \item $l_{min}(\,\sigma^1 \oplus \sigma^2)\, = -q_{min}(\,\sigma^1 \oplus \sigma^2)\,$;
+        \item $l_{max}(\,\sigma^1 \oplus \sigma^2)\, = Q - q_{max}(\,\sigma^1 \oplus \sigma^2)\,$ .
+    \end{itemize}
+    
+\par O total de subsequências de uma solução $S$ é da ordem de $|V|^2$, o que significa que a atualização de todas as ADSs de uma solução possui cerca de $O(\,|V|^2)\,$ operações. Algumas observações sobre viabilidade de uma solução podem ser feitas utilizando os cálculos supracitados. Dada uma subsequência qualquer, ela será viável se o valor $l_{min}$ associado a ela é zero, ou seja, o valor mínimo de carga que pode entrar na solução para mantê-la viável é nulo, e o valor $l_{max}$ não pode ser negativo, visto que dessa forma haveria um fluxo $q_{max}$ maior que a capacidade máxima $Q$ do veículo em alguma visita na subsequência. Dadas duas subsequências arbitrárias, $\sigma^1$ e $\sigma^2$, a concatenação delas só será viável se os valores associados à primeira subsequência obedecem as regras introduzidas na observação anterior. E ainda, o valor $q_{sum}(\,\sigma^1)\,$ deve ser maior ou igual a $l_{min}(\,\sigma^2)\,$ e menor ou igual a $l_{max}(\,\sigma^2)\,$.
+
+\section{Construindo as ADSs}\label{sec:LABEL_CHP_4_SEC_B}
+
+\par As ADSs podem ser armazenadas utilizando um vetor bidimensional, uma matriz, de valores inteiros. É importante notar que tal matriz é triangular superior, por conta de não são realizadas consultas de subsequências $\sigma_{i,j}$ com $i > j$. O algoritmo 5 descreve os passos para a construção das ADSs de uma solução $S$. As linhas 3 e 12 mostra que a operação feita na visita à estação $i$ tem seu sinal trocado. Observe que o primeiro laço de repetição começa com $i=1$, visto que a operação feita no índice zero do caminho de $S$ é nula, tendo em vista que nada é feito ao sair do depósito. Assim, os valores relacionados a $\sigma_{0, 0}$ de qualquer $\sigma$ são $q_{sum} = q_{min} = q_{max} = l_{min} = 0$ e $l_{max} = Q$. O algoritmo de construção das ADSs pode ser facilmente adaptado para apenas atualizar os valores de uma pedaço com início $a$ e final $b$ de uma subsequência de $\sigma$. Nesse caso, as ADSs associadas às subsequências $\sigma_{i, j}$ com $i < a \land j < a$ ou com $i > b \land j > b$ não precisam ser recalculadas. Para deixar de cálculá-las començamos substituindo o valor máximo de $i$ no bloco \textit{para} da linha 2 por $j$. Então, precisamos tratar dois casos do loop 2, os quais são:
+    
+    \begin{itemize}
+        \item $i < a$: Os valores da ADS de $\sigma_{i, a}$ são calculados como se segue:
+        \begin{enumerate}
+            \item $q_{sum}(\,\sigma_{i, a})\, = q_{sum}(\,\sigma_{i, a-1})\, + g_a$
+            \item $q_{min}(\,\sigma_{i, a})\, = min\{q_{sum}(\,\sigma_{i, a})\,, q_{sum}(\,\sigma_{i, a-1})\,\}$
+            \item $q_{max}(\,\sigma_{i, a})\, = max\{q_{sum}(\,\sigma_{i, a})\,, q_{sum}(\,\sigma_{i, a-1})\,\}$
+            \item O valor inicial de $j$ no laço da linha 11 é $a + 1$
+        \end{enumerate}
+        \item $i \geq a$: os valores são calculados utilizando somente $g_i$ e o valor de $j$ no laço da linha 11 é $i + 1$.
+    \end{itemize}
+    
+\par Tomando como exemplo o caminho da figura \ref{fig:my_label} de $n = Q = 8$ e operações \( g = <0, +2, +6, -4, +4, -1, -6, -1>\), teríamos $q_{sum}(\,\sigma)\, = 0\; +\; 2\; +\; 6\; -\; 4\; +\; 4\; -\; 1\; -\; 6\; -\; 1 = 0$, $q_{min}(\,\sigma)\, = min\{0, 2, 8, 4, 8, 7, 1, 0\} = 0$, $q_{max}(\,\sigma)\, = max\{0, 2, 8, 4, 8, 7, 1, 0\} = 8$, $l_{min}(\,\sigma)\, = 0$ e $l_{max}(\,\sigma)\, = 8 - 8 = 0$. Agora, fazendo os cálculos apenas sobre a subsequência $\sigma_{(\,3, 5)\,} = \{4, 5, 2\}$, temos $q_{sum}(\,\sigma_{(\,3, 5)\,})\, = -\; 4\; +\; 4\; -\; 1\; = -1$, $q_{min}(\,\sigma_{(\,3, 5)\,})\, = min\{0, -4, 0, -1\} = -4$, $q_{max}(\,\sigma_{(\,3, 5)\,})\, = max\{0, -4, 0, -1\} = 0$, $l_{min}(\,\sigma_{(\,3, 5)\,})\, = 4$ e $l_{max}(\,\sigma_{(\,3, 5)\,})\, = 8 - 4 = 4$.
+
+    \begin{algorithm}[H]
+    \caption{Construir ADS}
+    \begin{algorithmic}[1]
+    \REQUIRE Solução $s$, $Q \in \mathbb{N}$
+    \ENSURE As estruturas auxiliares de dados de $s$ são inicializadas
+    \STATE $ADS \leftarrow$ Matriz de dimensões $N \times N$, em que N é o tamanho do caminho de $s$
+    \FOR{$i=1$ até $N$}
+        \STATE $q_{sum} \leftarrow g_i$
+        \STATE $q_{min} \leftarrow min\{0, q_{sum}\}$
+        \STATE $q_{max} \leftarrow max\{0, q_{sum}\}$
+        \STATE $ADS[i, i].q_{sum} \leftarrow q_{sum}$
+        \STATE $ADS[i, i].q_{min} \leftarrow q_{min}$
+        \STATE $ADS[i, i].q_{max} \leftarrow q_{max}$
+        \STATE $ADS[i, i].l_{min} \leftarrow -q_{min}$
+        \STATE $ADS[i, i].l_{max} \leftarrow Q - q_{max}$
+        \FOR{$j = i + 1$ até $N$}
+            \STATE $q_{sum} \leftarrow q_{sum} + g_j$
+            \STATE $q_{min} \leftarrow min\{q_{sum}, q_{min}\}$
+            \STATE $q_{max} \leftarrow max\{q_{sum}, q_{max}\}$
+            \STATE $ADS[i, j].q_{sum} \leftarrow q_{sum}$
+            \STATE $ADS[i, j].q_{min} \leftarrow q_{min}$
+            \STATE $ADS[i, j].q_{max} \leftarrow q_{max}$
+            \STATE $ADS[i, j].l_{min} \leftarrow -q_{min}$
+            \STATE $ADS[i, j].l_{max} \leftarrow Q - q_{max}$
+        \ENDFOR
+    \ENDFOR
+    \end{algorithmic}
+    \end{algorithm}
