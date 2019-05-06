@@ -71,3 +71,42 @@
         \item $\sigma_{(j-1, j-1)}\sigma_{(i, i)}$ na posição $j-1$;
         \item $\sigma_{(i, i)}\sigma_{(j, j)}$ na posição $j$.
     \end{itemize}
+    
+    
+\section{Representando a lista tabu}\label{sec:LABEL_CHP_6_SEC_D}
+
+\par A Busca Tabu, como já dito, possui uma memória que armazena movimentos recentemente utilizados. Essa memória pode ser chamada de lista tabu. Como será visto no algoritmo geral na próxima seção, a solução atual do procedimento (não necessariamente a melhor encontrada até o momento) sofre permutações decorrentes dos movimentos aplicados pelas estruturas de vizinhança selecionadas em ordem arbitrária pelo procedimento RVND. Por conseguinte, arcos deixam a solução e outros entram com o intuito de se obter uma nova. Todos os movimentos realizados foram verificados quanto à sua viabilidade em relação à carga do caminhão e no que tange às restrições tabu impostas. Torna-se necessário, então, que a lista tabu seja atualizada, sendo acrescida dos novos movimentos utilizados e perdendo aqueles há muito utilizados, que já não podem mais ser restringidos. Quando tempo um movimento fica proibido depende do tamanho da lista tabu.
+
+\par Seja uma entidade Tabu que representará a lista tabu. Ela possui tamanho $l$ e um índice $i$ que indica a próxima posição do vetor que será utilizada. Cada posição do vetor conterá uma lista de movimentos, pois vários podem ser feitos ao realizar a busca local. Cada um deles terá informações sobre o arco $ab$ e sua posição $k$ em que se encontrava no caminho da última solução. Além disso, tal entidade possui a relação de bitmaps para cada arco do grafo do problema. Abaixo está um algoritmo que ilustra os passos para que a lista tabu seja atualizada.
+
+	\begin{algorithm}[H]
+    \caption{Atualizar lista tabu}
+    \begin{algorithmic}[1]
+    \REQUIRE Tabu $t$, Solução $s$
+    \ENSURE A lista tabu $t$ tem seus movimentos proibidos atualizados de acordo com a Solução $s$
+    \STATE Movimentos m  $\leftarrow t \rightarrow movimentos[t \rightarrow i]$
+	\IF{$m$ está definido}
+		\FOR{$c=0$ até $|m|$}
+			\STATE $setBit0(t \rightarrow arcos [m[c] \rightarrow a][m[c] \rightarrow b], m[c] \rightarrow k)$
+		\ENDFOR
+    \ENDIF
+    \STATE Movimentos novo $\leftarrow$ novo movimento de tamanho $|s|$
+    \FOR{$c=1$ até $|s|$}
+		\STATE Bitmap b $\leftarrow t \rightarrow arcos [l_{c-1}][l_c]$
+		\IF {$\sim getBit(b, c-1)$}
+			\STATE $setBit1(c, c-1)$
+			\STATE $adicionar(novo, l_{c-1}, l_c, c-1)$
+		\ENDIF
+    \ENDFOR
+    
+    \STATE $t \rightarrow movimentos [t \rightarrow i] \leftarrow novo$
+    
+    \IF{$t \rightarrow i + 1 \geq t \rightarrow l$}
+    	\STATE $t \rightarrow i \leftarrow 0$
+    \ELSE
+    	\STATE $t \rightarrow i \leftarrow t \rightarrow i + 1$    
+    \ENDIF
+    \end{algorithmic}
+    \end{algorithm}
+    
+\par As linhas 1 a 6 tratam da exclusão de movimentos antigos o suficiente para sair da lista tabu, que funciona circularmente, ou seja, o vetor de movimentos é preenchido até que se chegue ao final, instante em que se volta ao seu início, com o intuito de sobrescrever os movimentos que devem ser permitidos novamente. Essa operação circular pode ser observada a partir da linha 15, quando há uma verificação sobre se o índice atual da lista tabu incrementado de um é maior que o seu tamanho. O momento de reinicialização do índice atual da entidade Tabu depende diretamente de seu tamanho, isto é, a quantidade iterações que um arco fica proibido de ser utilizado numa dada posição. Da linha 7 à 15 há a preparação dos movimentos feitos relacionados à solução dada como argumento. A linha 9 coleta a estrutura bitmap referente ao arco que será adicionado ou não na nova lista de movimentos. Observe que a busca local move \textit{alguns} arcos de posição, o que leva a uma perturbação, a um ruído, a uma mutação em relação a solução inicial. Isso quer dizer que a solução raramente é inteiramente modificada. Por isso, para que um arco que continuou na solução produzida não seja \textit{adicionado} em outra relação de movimentos, antes é averiguado se ele já não foi dado como proibido. Os movimentos de verificação e de definição do valor de bits é feito em tempo constante. No algoritmo citado há a execução de um laço de tamanho $|s|$ e outro que pode ser executado com $|m|$ iterações, que depende de quantos arcos que entraram na lista tabu estão agora para ser excluídos. Consequentemente, a complexidade do algoritmo é $\theta(|s| + |m|)$.
