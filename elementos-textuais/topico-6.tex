@@ -22,4 +22,52 @@
 
 \par Desta forma, para a implementação da memória da Busca Tabu enunciada no início desse capítulo, será necessário manter um vetor de mapa de bits para cada arco do grafo que modela uma dada instância do problema. Assim, para saber se um arco foi utilizado numa posição $k$ de uma solução recentemente, pode-se verificar se o valor $k$ está presente em seu respectivo conjunto de bits.
 
-\section{Representação da lista tabu}\label{sec:LABEL_CHP_6_SEC_C}
+\section{Regras tabu para cada vizinhança}\label{sec:LABEL_CHP_6_SEC_C}
+
+\par Antes de expor o algoritmo completo para a Busca Tabu, as regras de aceitação de um movimento para cada vizinhança vistas no capítulo \ref{chp:LABEL_CHP_5} serão acrescentadas de mais algumas verificações. Essas servirão para descobrir se uma aresta que está para ser movida pelo movimento de uma vizinhança foi utilizada recentemente na posição a qual está destinada. Uma subsequência qualquer de tamanho $n$ terá $n-1$ posições válidas de arcos, que podem ser identificados a partir de qualquer subsequência de dois vértices consecutivos. A seguir constam as novas apurações a serem feitas para cada vizinhança, exceto as de perturbação, que não foram utilizadas no algoritmo proposto.
+
+
+\subsection{2-OPT}\label{sec:LABEL_CHP_5_SUBSEC_A}
+
+\par Essa vizinhança inverte uma subsequência de vértices entre as posições $i$ e $j$.  Assim, os seguintes arcos não poderão ter sido usados nas seguintes posições recentemente:
+
+	\begin{itemize}
+        \item $\sigma_{(i, i)}\sigma_{(j-1, j-1)}$ na posição $i$;
+        \item $\sigma_{(i+1, i+1)}\sigma_{(j, j)}$ na posição $j$.
+    \end{itemize}
+    
+\subsection{Swap}\label{sec:LABEL_CHP_5_SUBSEC_B}
+
+\par A vizinhança dessa seção permuta os vértices das posições $i$ e $j$. Consequentemente, os arcos abaixo serão proibidos de serem utilizados se estavam presentes recentemente nas seguintes posições:
+
+	\begin{itemize}
+        \item $\sigma_{(i-1, i-1)}\sigma_{(j, j)}$ na posição $i-1$;
+        \item $\sigma_{(j, j)}\sigma_{(i+1, i+1)}$ na posição $i$;                				\item $\sigma_{(j-1, j-1)}\sigma_{(i, i)}$ na posição $j-1$;
+        \item $\sigma_{(i, i)}\sigma_{(j+1, j+1)}$ na posição $j$.
+    \end{itemize}
+    
+\subsection{or-OPT-k}\label{sec:LABEL_CHP_5_SUBSEC_C}
+
+\par O movivmento desta vizinhança consiste da realocação de uma subsequência de tamanho $k$ de vértices da posição $i$ para a posição $j$. Abaixo encontram-se os arcos e suas respectivas posições que serão proibidas:
+
+    \begin{itemize}
+        \item $i < j$:
+        \begin{enumerate}
+	        \item $\sigma_{(i-1, i-1)}\sigma_{(i+k+1, i+k+1)}$ na posição $i-1$;
+    	    \item $\sigma_{(j, j)}\sigma_{(i, i)}$ na posição $j-k+1$;                				\item $\sigma_{(j+1, j+1)}\sigma_{(i+k, i+k)}$ na posição $j$.
+        \end{enumerate}
+        \item $i > j$:
+        \begin{enumerate}
+	        \item $\sigma_{(j, j)}\sigma_{(i, i)}$ na posição $j$;
+    	    \item $\sigma_{(i+k, i+k)}\sigma_{(j+1, j+1)}$ na posição $j+k+1$;                			\item $\sigma_{(i-1, i-1)}\sigma_{(i+k+1, i+k+1)}$ na posição $i+k$.
+        \end{enumerate}
+    \end{itemize}    
+    
+\subsection{Split}\label{sec:LABEL_CHP_5_SUBSEC_D}
+
+\par A operação de split consiste de adicionar a posição $j$ do caminho mais uma visita para a estação já visitada na posição $i$. Deste modo, há as proibições a seguir:
+
+	\begin{itemize}
+        \item $\sigma_{(j-1, j-1)}\sigma_{(i, i)}$ na posição $j-1$;
+        \item $\sigma_{(i, i)}\sigma_{(j, j)}$ na posição $j$.
+    \end{itemize}
