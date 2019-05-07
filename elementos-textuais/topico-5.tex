@@ -111,15 +111,18 @@ que seja viável e tenha um custo $f(\,\sigma^\lq)\, < f(\,\sigma)\,$. O termo $
 \par Esta vizinhança, utilizada em \citet{art:REF_ART_1}, porém esmiuçada melhor em \citet{art:REF_ART_7}, promove o seguinte: duas subsequências, de qualquer tamanho, são permutadas, isto é, são colocadas uma no lugar da outra. Desta forma, dadas 4 posições $p_1, p_2, p_3$ e $p_4$, escolhidas aleatoriamente, respeitando as condições $1 \leq p_1 \leq |\sigma| - 5,\, p_1 \leq p_2 \leq |\sigma| - 4,\, p_2 < p_3 \leq |\sigma| - 3$ e $p_3 \leq p_4 \leq |\sigma| - 2$, uma subsequência
 
     \begin{numcases}{\sigma^\lq =}
-      \sigma_{(\,0, p_1 - 1)\,}\; \oplus\; \sigma_{(\,p_3, p_4)\,}\; \oplus\; \sigma_{(\,p_2 + 1, p_3 - 1)\,}\; \oplus\; \sigma_{(\,p_1, p_2)\,}
-      \oplus\; \sigma_{(\,p_4 + 1, |\sigma| - 1)\,}, & se $p_3 - p_2 > 1$ \\
+    	\begin{split}
+      		\sigma_{(\,0, p_1 - 1)\,}\; \oplus\; \sigma_{(\,p_3, p_4)\,}\; \oplus\; \sigma_{(\,p_2 + 1, p_3 - 1)\,}\; \\ \oplus\; \sigma_{(\,p_1, p_2)\,}
+      \oplus\; \sigma_{(\,p_4 + 1, |\sigma| - 1)\,} 
+      \end{split}, & se $p_3 - p_2 > 1$ \\
       \sigma_{(\,0, p_1 - 1)\,}\; \oplus\; \sigma_{(\,p_3, p_4)\,}\; \oplus\; \sigma_{(\,p_1, p_2)\,} \oplus\; \sigma_{(\,p_4 + 1, |\sigma| - 1)\,}, & se não
     \end{numcases}
     
 podendo não ser viável e não tendo um custo menor que o da sequência original. Tal custo pode ser calculado como $f(\sigma^\lq) = f(\sigma) - (c_{(p_1 - 1, p_1)} + c_{(p_4, p_4 + 1)}) + (c_{(p_1 - 1, p_3)} + c_{(p_2, p_4 + 1)})$. Ademais, temos:
 
     \begin{numcases}{f(\sigma^\lq) = f(\sigma^\lq) -}
-        (c_{(p_2, p_2 + 1)} + c_{(p_3 - 1, p_3)}) - (c_{(p_4, p_2 +1)} + c_{(p_3 - 1, p_1)}), & se $p_3 - p_2 > 1$ \\
+    	\begin{split}
+        (c_{(p_2, p_2 + 1)} + c_{(p_3 - 1, p_3)}) - \\ (c_{(p_4, p_2 +1)} + c_{(p_3 - 1, p_1)}) \end{split}, & se $p_3 - p_2 > 1$ \\
         (c_{(p_2, p_3)}) - (c_{(p_4, p_1)}, & se não
     \end{numcases}
     
