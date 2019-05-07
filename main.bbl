@@ -1,4 +1,4 @@
-\begin{thebibliography}{17}
+\begin{thebibliography}{18}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -32,6 +32,10 @@ C.~Carvalho.
 D.~CHEMLA, F.~Meunier, and R.~Calvo.
 \newblock Bike sharing systems: Solving the static rebalancing problem.
 \newblock \emph{Discrete Optimization}, pages 120--146, 2013.
+
+\bibitem[Correa(2016)]{correa}
+R.~Correa.
+\newblock Estrutura de dados para conjuntos, 2016.
 
 \bibitem[CRUZ et~al.(2016)CRUZ, Subramanian, Bruck, and Iori]{art:REF_ART_1}
 F.~CRUZ, A.~Subramanian, B.~Bruck, and Manuel. Iori.
@@ -69,8 +73,8 @@ E.~Freitas.
   \url{https://mundoeducacao.bol.uol.com.br/geografia/poluicao-sonora-visual.htm}.
 \newblock Acessado em: 2019-02-01.
 
-\bibitem[Glover and M.(1997)]{glover}
-F.~Glover and Laguna M.
+\bibitem[Glover and Laguna(1997)]{glover}
+F.~Glover and M.~Laguna.
 \newblock \emph{Tabu Search}.
 \newblock Springer US, 1997.
 \newblock ISBN 9781461560890.

@@ -38,5 +38,5 @@
 \contentsline {subsection}{\numberline {6.3.3}or-OPT-k}{32}{subsection.6.3.3}
 \contentsline {subsection}{\numberline {6.3.4}Split}{33}{subsection.6.3.4}
 \contentsline {section}{\numberline {6.4}Representando a lista tabu}{33}{section.6.4}
-\contentsline {chapter}{Refer{\^e}ncias}{36}{ALC@unique.115}
-\contentsline {chapter}{\numberline {A}Lorem ipsum dolor sit amet}{39}{appendix.A}
+\contentsline {section}{\numberline {6.5}O algoritmo}{36}{section.6.5}
+\contentsline {chapter}{Refer{\^e}ncias}{38}{ALC@unique.134}

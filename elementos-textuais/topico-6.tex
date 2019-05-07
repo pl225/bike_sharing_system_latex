@@ -6,13 +6,13 @@
 
 \par Essa meta-heurística, diferentemente da ILS, para a obtenção de melhores resultados, ancora-se na premissa de que para uma busca ser considerada inteligente, ela deve incorporar uma memória adaptativa, para que haja economia e eficiência ao guiar a busca com informações coletadas durante a sua execução, e ser responsiva, baseando-se na suposição de que uma má estratégia de escolha pode gerar mais informação que uma boa escolha feita de forma aleatória. Assim, esse modelo heurístico permite que boas características de soluções sejam utilizadas ao mesmo tempo que regiões do espaço de busca ainda não visitadas sejam analisadas.
 
-\par Na seção \ref{sec:LABEL_CHP_2_SEC_C} do capítulo \ref{chp:LABEL_CHP_2} pode-se encontrar uma síntese sobre um trabalho que também utilizou a meta-heurística supracitada. O programa produzido em tal pesquisa se utilizou da estrutura de dados \textit{multimap}, que associa um valor a uma chave específica, da linguagem C++ para implementar a memória da Busca Tabu. Tal componente foi implementado para que a seguinte ideia fosse possível: um arco $ab$ qualquer que foi utilizado numa posição $k$ do caminho da última solução encontrada não poderá ser utilizado novamente por um número determinado de iterações. Com isso, diminui-se a probabilidade de se chegar a uma solução já encontrada, visto que os arcos para se chegar a ela são proibidos, possibilitando uma diversificação no processo de investigação de áreas ainda não vistas. A memória que será utilizada no algoritmo a ser proposto utilizará essa mesma ideia, porém, sua implementação não será feita empregando a estrutura de dados mencionada a pouco, pois apesar de fornecer rápido acesso, tal coisa não é feita em tempo constante.
+\par Na seção \ref{sec:LABEL_CHP_2_SEC_C} do capítulo \ref{chp:LABEL_CHP_2} pode-se encontrar uma síntese sobre um trabalho que também utilizou a meta-heurística supracitada. O programa produzido em tal pesquisa se utilizou da estrutura de dados \textit{multimap} da linguagem C++, que associa um valor a uma chave específica, para implementar a memória da Busca Tabu. Tal componente foi implementado para que a seguinte ideia fosse possível: um arco $ab$ qualquer que foi utilizado numa posição $k$ do caminho da última solução encontrada não poderá ser utilizado novamente por um número determinado de iterações. Com isso, diminui-se a probabilidade de se chegar a uma solução já encontrada, visto que os arcos para se chegar a ela são proibidos, possibilitando uma diversificação no processo de investigação de áreas ainda não vistas. A memória que será utilizada no algoritmo a ser proposto utilizará essa mesma ideia, porém, sua implementação não será feita empregando a estrutura de dados mencionada a pouco, pois apesar de fornecer rápido acesso, tal coisa não é feita em tempo constante.
 
-\par A busca local utilizará as mesmas vizinhanças dispostas em \citet{art:REF_ART_1}, assim como o procedimento RVND para a busca local. No entanto, as vizinhanças de perturbação não serão utilizadas, visto que a diversificação da Busca Tabu é feita a partir de uma análise que se permite caminhar por soluções de qualidade inferiores às das melhores encontradas, além de evitar percorrer por áreas percorridas recentemente, ao passo que a meta-heurística ILS modifica a solução atual utilizando movimentos que a levem a uma região um tanto diferente da que fora recentemente observada. Consequentemente, o procedimento RVND teve que sofrer uma pequena adaptação que será detalhada futuramente neste trabalho.
+\par A busca local utilizará as mesmas vizinhanças dispostas em \citet{art:REF_ART_1}, assim como o procedimento RVND para a busca local. No entanto, as vizinhanças de perturbação não serão utilizadas, visto que a diversificação da Busca Tabu é feita a partir de uma análise que se permite caminhar por soluções de qualidade inferiores às das melhores encontradas, além de evitar caminhar por áreas percorridas recentemente, ao passo que a meta-heurística ILS modifica a solução atual utilizando movimentos que a levem a uma região um tanto diferente da que fora recentemente observada. Consequentemente, o procedimento RVND teve que sofrer uma pequena adaptação que será detalhada futuramente neste trabalho.
 
 \section{Bitmap}\label{sec:LABEL_CHP_6_SEC_B}
 
-\par Para que a estrutura de dados elaborada neste trabalho seja apresentada, faz-se necessário que o leitor conheça uma estrutura conhecida como mapa de bits, muito utilizada para a representação de conjuntos numéricos sem desperdício de memória e de desempenho. 
+\par Para que a estrutura de dados elaborada neste trabalho seja apresentada, faz-se necessário que o leitor conheça uma estrutura conhecida como mapa de bits \citet{correa}, muito utilizada para a representação de conjuntos numéricos sem desperdício de memória e de desempenho. 
 
 \par Um mapa de bits consiste de uma palavra de bits, dependente da arquitetura do computador utilizado, que possui bits ligados ou desligados. Quando empregado para representar conjuntos, um elemento $i$ pertence ao conjunto se o bit na posição $i$ está definido como 1, e 0 em caso contrário. Caso a quantidade de bits da palavra de bits da máquina seja inferior ao número pretendido de elementos que um conjunto precisa armazenar, pode-se utilizar vetores de mapa de bits. Cada posição do vetor é chamada de \textit{naco}, e estes são inicializados com todos os seus bits como $0$.
 
@@ -75,9 +75,9 @@
     
 \section{Representando a lista tabu}\label{sec:LABEL_CHP_6_SEC_D}
 
-\par A Busca Tabu, como já dito, possui uma memória que armazena movimentos recentemente utilizados. Essa memória pode ser chamada de lista tabu. Como será visto no algoritmo geral na próxima seção, a solução atual do procedimento (não necessariamente a melhor encontrada até o momento) sofre permutações decorrentes dos movimentos aplicados pelas estruturas de vizinhança selecionadas em ordem arbitrária pelo procedimento RVND. Por conseguinte, arcos deixam a solução e outros entram com o intuito de se obter uma nova. Todos os movimentos realizados foram verificados quanto à sua viabilidade em relação à carga do caminhão e no que tange às restrições tabu impostas. Torna-se necessário, então, que a lista tabu seja atualizada, sendo acrescida dos novos movimentos utilizados e perdendo aqueles há muito utilizados, que já não podem mais ser restringidos. Quando tempo um movimento fica proibido depende do tamanho da lista tabu.
+\par A Busca Tabu, como já dito, possui uma memória que armazena movimentos recentemente utilizados. Essa memória pode ser chamada de lista tabu. Como será visto no algoritmo geral na próxima seção, a solução atual do procedimento (não necessariamente a melhor encontrada até o momento) sofre permutações decorrentes dos movimentos aplicados pelas estruturas de vizinhança selecionadas em ordem arbitrária pelo procedimento RVND. Por conseguinte, arcos deixam a solução e outros entram com o intuito de se obter uma nova. Todos os movimentos realizados foram verificados quanto à sua viabilidade em relação à carga do caminhão e no que tange às restrições tabu impostas. Torna-se necessário, então, que a lista tabu seja atualizada, sendo acrescida dos novos movimentos utilizados e perdendo aqueles há muito utilizados, que já não podem mais ser restringidos. Quanto tempo um movimento fica proibido depende do tamanho da lista tabu.
 
-\par Seja uma entidade Tabu que representará a lista tabu. Ela possui tamanho $l$ e um índice $i$ que indica a próxima posição do vetor que será utilizada. Cada posição do vetor conterá uma lista de movimentos, pois vários podem ser feitos ao realizar a busca local. Cada um deles terá informações sobre o arco $ab$ e sua posição $k$ em que se encontrava no caminho da última solução. Além disso, tal entidade possui a relação de bitmaps para cada arco do grafo do problema. Abaixo está um algoritmo que ilustra os passos para que a lista tabu seja atualizada.
+\par Seja uma entidade Tabu que representará a lista tabu. Ela possui tamanho $l$, um vetor de Movimentos e um índice $i$ que indica a próxima posição do vetor que será utilizada. Cada posição do vetor conterá uma lista de movimentos, pois vários podem ser feitos ao realizar a busca local. Cada um deles terá informações sobre o arco $ab$ e sua posição $k$ em que se encontrava no caminho da última solução. Além disso, tal entidade possui a relação de bitmaps para cada arco do grafo do problema, a saber, uma matriz $VxV$. Abaixo está um algoritmo que ilustra os passos para que a lista tabu seja atualizada.
 
 	\begin{algorithm}[H]
     \caption{Atualizar lista tabu}
@@ -110,3 +110,38 @@
     \end{algorithm}
     
 \par As linhas 1 a 6 tratam da exclusão de movimentos antigos o suficiente para sair da lista tabu, que funciona circularmente, ou seja, o vetor de movimentos é preenchido até que se chegue ao final, instante em que se volta ao seu início, com o intuito de sobrescrever os movimentos que devem ser permitidos novamente. Essa operação circular pode ser observada a partir da linha 15, quando há uma verificação sobre se o índice atual da lista tabu incrementado de um é maior que o seu tamanho. O momento de reinicialização do índice atual da entidade Tabu depende diretamente de seu tamanho, isto é, a quantidade iterações que um arco fica proibido de ser utilizado numa dada posição. Da linha 7 à 15 há a preparação dos movimentos feitos relacionados à solução dada como argumento. A linha 9 coleta a estrutura bitmap referente ao arco que será adicionado ou não na nova lista de movimentos. Observe que a busca local move \textit{alguns} arcos de posição, o que leva a uma perturbação, a um ruído, a uma mutação em relação a solução inicial. Isso quer dizer que a solução raramente é inteiramente modificada. Por isso, para que um arco que continuou na solução produzida não seja \textit{adicionado} em outra relação de movimentos, antes é averiguado se ele já não foi dado como proibido. Os movimentos de verificação e de definição do valor de bits é feito em tempo constante. No algoritmo citado há a execução de um laço de tamanho $|s|$ e outro que pode ser executado com $|m|$ iterações, que depende de quantos arcos que entraram na lista tabu estão agora para ser excluídos. Consequentemente, a complexidade do algoritmo é $\theta(|s| + |m|)$.
+
+\section{O algoritmo}\label{sec:LABEL_CHP_6_SEC_E}
+
+\par Como já foi visto todo o conteúdo necessário, o procedimento principal da Busca Tabu elaborado encontra-se definido a seguir. As 5 primeiras linhas lidam com a inicialização dos principais componentes do algoritmo. A solução inicial poderá ser computada por um método guloso ou pelo construtor aleatório introduzido no capítulo \ref{chp:LABEL_CHP_3}. O laço principal continua até que a condição de número máximo de iterações sem melhora seja verdadeira, momento em que ele encerra sua execução.
+
+\par Como já determinado, o algoritmo abaixo não possui fase de perturbação. Nessas condições, se utilizado o procedimento RVND do capítulo \ref{chp:LABEL_CHP_3}, o algoritmo se resumiria a uma construção de uma solução inicial e a execução da busca local sobre ela. Sabe-se que o procedimento RVND retorna a melhor solução encontrada apenas quando nenhuma estrutura de vizinhança é capaz de melhorá-la. Se a solução dada como parâmetro de entrada já for a melhor, a mesma é retornada. Para que isso não ocorra, o procedimento RVND sofreu uma pequena adaptação, que acabou por originar o $RVND^*$. Quando da execução da primeira busca exaustiva por uma vizinhança qualquer para encontrar o melhor vizinho possível, o custo da solução resultante é comparado com o da solução atual, que no momento é aquela dada como argumento da função. Assim, o primeiro melhor custo do algoritmo é $f(s)$. Propôs-se o seguinte: o primeiro teste é feito com $f(\infty)$, o que permite que a primeira solução obtida sempre seja aceita. Com isso, o número de soluções candidatas possíveis após a primeira iteração torna-se grande novamente e o procedimento passa a produzir soluções diferentes como saída. Os experimentos a serem apresentados no próximo capítulo mostram que tal adaptação gerou bons resultados.
+
+
+	\begin{algorithm}[H]
+    \caption{Busca Tabu}
+    \begin{algorithmic}[1]
+    \REQUIRE Inteiro $l$, Inteiro $maxIteracoes$
+    \ENSURE A melhor solução $s^*$ encontrada
+    \STATE $s \leftarrow$ solução inicial
+    \STATE $s^* \leftarrow s$
+    \STATE Tabu $tabu \leftarrow$ lista tabu vazia de tamanho $l$
+    \STATE $atualizarListaTabu(tabu, s)$
+    \STATE $i \leftarrow 0$
+    \WHILE{\TRUE}
+    	\STATE $s \leftarrow RVND^*(s, tabu)$
+    	\STATE $atualizarListaTabu(tabu, s)$
+    	\IF {$f(s) < f(s^*)$}
+			\STATE $s^* \leftarrow s$
+		    \STATE $i \leftarrow 0$
+		\ELSE
+			\STATE $i \leftarrow i + 1$
+			\IF{$i = maxIteracoes$}
+				\STATE $break$
+			\ENDIF		
+		\ENDIF
+    \ENDWHILE
+    
+    \RETURN $s^*$
+    \end{algorithmic}
+    \end{algorithm}

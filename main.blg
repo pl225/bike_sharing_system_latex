@@ -2,7 +2,7 @@ This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: main.aux
 The style file: plainnat.bst
-Illegal, another \bibstyle command---line 143 of file main.aux
+Illegal, another \bibstyle command---line 147 of file main.aux
  : \bibstyle
  :          {abnt}
 I'm skipping whatever remains of this command
@@ -12,45 +12,45 @@ Warning--empty year in site:5
 Warning--empty year in site:6
 Warning--empty journal in art:REF_ART_5
 Warning--empty publisher in book:1
-You've used 17 entries,
+You've used 18 entries,
             2773 wiz_defined-function locations,
-            678 strings with 8066 characters,
-and the built_in function-call counts, 6469 in all, are:
-= -- 571
-> -- 310
-< -- 15
-+ -- 110
-- -- 93
-* -- 395
-:= -- 992
-add.period$ -- 61
-call.type$ -- 17
-change.case$ -- 80
-chr.to.int$ -- 17
-cite$ -- 39
-duplicate$ -- 324
-empty$ -- 583
-format.name$ -- 114
-if$ -- 1390
+            681 strings with 8116 characters,
+and the built_in function-call counts, 6739 in all, are:
+= -- 594
+> -- 320
+< -- 16
++ -- 114
+- -- 96
+* -- 408
+:= -- 1035
+add.period$ -- 63
+call.type$ -- 18
+change.case$ -- 84
+chr.to.int$ -- 18
+cite$ -- 41
+duplicate$ -- 341
+empty$ -- 610
+format.name$ -- 118
+if$ -- 1445
 int.to.chr$ -- 1
 int.to.str$ -- 1
 missing$ -- 10
-newline$ -- 103
-num.names$ -- 68
-pop$ -- 221
+newline$ -- 107
+num.names$ -- 72
+pop$ -- 230
 preamble$ -- 1
-purify$ -- 65
+purify$ -- 68
 quote$ -- 0
-skip$ -- 256
+skip$ -- 269
 stack$ -- 0
-substring$ -- 118
-swap$ -- 43
+substring$ -- 120
+swap$ -- 44
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 177
+type$ -- 188
 warning$ -- 5
-while$ -- 57
+while$ -- 60
 width$ -- 0
-write$ -- 229
+write$ -- 239
 (There was 1 error message)
