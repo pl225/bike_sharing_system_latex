@@ -1,6 +1,6 @@
 \chapter{Estruturas de vizinhança}\label{chp:LABEL_CHP_5}
 
-\par Neste capítulo serão tratadas as estruturas de vizinhança utilizadas nos procedimentos RVND e de perturbação. Ela consiste de um determinado movimento feito sobre uma solução, testando-se todas as possibilidades, a fim de encontrar uma que seja a mais proveitosa que, neste caso, é a que possui um menor custo e que ainda seja viável. Os custos entre as arestas que serão utilizados para calcular o custo final dos vários exemplos que serão feitos são oriundos da instância \textit{n20q10} definida em \citet{art:REF_ART_3} e reutilizada em \citet{art:REF_ART_5}.
+\par Neste capítulo serão tratadas as estruturas de vizinhança utilizadas nos procedimentos RVND e de perturbação. Ela consiste de um determinado movimento feito sobre uma solução, testando-se todas as possibilidades, a fim de encontrar uma que seja a mais proveitosa que, neste caso, é a que possui um menor custo e que ainda seja viável. Os custos entre as arestas que serão utilizados para calcular o custo final dos vários exemplos que serão feitos são oriundos da instância \textit{n20q10A.tsp} definida em \citep{art:REF_ART_3} e reutilizada em \citep{art:REF_ART_5}.
 
 \section{Vizinhanças da busca local}\label{sec:LABEL_CHP_5_SEC_A}
 
@@ -108,7 +108,7 @@ que seja viável e tenha um custo $f(\,\sigma^\lq)\, < f(\,\sigma)\,$. O termo $
 
 \subsection{Double Bridge}\label{sec:LABEL_CHP_5_SUBSEC_F}
 
-\par Esta vizinhança, utilizada em \citet{art:REF_ART_1}, porém esmiuçada melhor em \citet{art:REF_ART_7}, promove o seguinte: duas subsequências, de qualquer tamanho, são permutadas, isto é, são colocadas uma no lugar da outra. Desta forma, dadas 4 posições $p_1, p_2, p_3$ e $p_4$, escolhidas aleatoriamente, respeitando as condições $1 \leq p_1 \leq |\sigma| - 5,\, p_1 \leq p_2 \leq |\sigma| - 4,\, p_2 < p_3 \leq |\sigma| - 3$ e $p_3 \leq p_4 \leq |\sigma| - 2$, uma subsequência
+\par Esta vizinhança, utilizada em \citep{art:REF_ART_1}, porém esmiuçada melhor em \citep{art:REF_ART_7}, promove o seguinte: duas subsequências, de qualquer tamanho, são permutadas, isto é, são colocadas uma no lugar da outra. Desta forma, dadas 4 posições $p_1, p_2, p_3$ e $p_4$, escolhidas aleatoriamente, respeitando as condições $1 \leq p_1 \leq |\sigma| - 5,\, p_1 \leq p_2 \leq |\sigma| - 4,\, p_2 < p_3 \leq |\sigma| - 3$ e $p_3 \leq p_4 \leq |\sigma| - 2$, uma subsequência
 
     \begin{numcases}{\sigma^\lq =}
     	\begin{split}
