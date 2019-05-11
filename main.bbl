@@ -1,9 +1,14 @@
-\begin{thebibliography}{18}
+\begin{thebibliography}{21}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Joh(1997)]{JohnMcGe97}
+The traveling salesman problem: A case study in local optimization.
+\newblock In \emph{Local Search in Combinatorial Optimization}, pages 215--310.
+  John Wiley and Sons, 1997.
 
 \bibitem[Brant(2016)]{site:2}
 J.~Brant.
@@ -13,6 +18,14 @@ J.~Brant.
   \url{https://www.archdaily.com.br/br/799252/as-7-causas-mais-comuns-de-congestao-viaria-e-as-estrategias-exitosas-para-enfrenta-la},
   2016.
 \newblock Acessado em: 2019-02-01.
+
+\bibitem[Brimberg et~al.(2000)Brimberg, Hansen, Mladenović, and
+  Taillard]{art:REF_ART_8}
+Jack Brimberg, Pierre Hansen, Nenad Mladenović, and Eric~D. Taillard.
+\newblock Improvements and comparison of heuristics for solving the
+  uncapacitated multisource weber problem.
+\newblock \emph{Operations Research}, 48\penalty0 (3):\penalty0 444--460, 2000.
+\newblock \doi{10.1287/opre.48.3.444.12431}.
 
 \bibitem[Bulhões et~al.(2016)Bulhões, Subramanian, G., and G.]{art:REF_ART_4}
 T.~Bulhões, A.~Subramanian, Erd\u{o}gan G., and Laporte G.
@@ -110,6 +123,12 @@ B.~Paes, A.~Subramanian, and L.~Ochi.
 \newblock Uma heurística híbrida para o problema do caixeiro viajante com
   coleta e entrega envolvendo um único tipo de produto.
 \newblock \emph{Simpósio Brasileiro de Pesquisa Operacional - SBPO}, 2010.
+
+\bibitem[Resende and Ribeiro(2016)]{resende:1}
+Mauricio G.~C. Resende and Celso~C. Ribeiro.
+\newblock \emph{Optimization by GRASP: Greedy Randomized Adaptive Search
+  Procedures}.
+\newblock Springer Publishing Company, Incorporated, 1st edition, 2016.
 
 \bibitem[Santos(2015)]{site:3}
 T.~Santos.
