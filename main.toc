@@ -39,4 +39,5 @@
 \contentsline {subsection}{\numberline {6.3.4}Split}{33}{subsection.6.3.4}
 \contentsline {section}{\numberline {6.4}Representando a lista tabu}{33}{section.6.4}
 \contentsline {section}{\numberline {6.5}O algoritmo}{36}{section.6.5}
-\contentsline {chapter}{Refer{\^e}ncias}{38}{ALC@unique.134}
+\contentsline {chapter}{\numberline {7}Resultados}{38}{chapter.7}
+\contentsline {chapter}{Refer{\^e}ncias}{41}{table.7.1}
