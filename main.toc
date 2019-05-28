@@ -40,4 +40,4 @@
 \contentsline {section}{\numberline {6.4}Representando a lista tabu}{33}{section.6.4}
 \contentsline {section}{\numberline {6.5}O algoritmo}{36}{section.6.5}
 \contentsline {chapter}{\numberline {7}Resultados}{38}{chapter.7}
-\contentsline {chapter}{Refer{\^e}ncias}{41}{table.7.1}
+\contentsline {chapter}{Refer{\^e}ncias}{43}{table.7.2}
