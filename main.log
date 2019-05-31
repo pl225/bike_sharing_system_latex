@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.5.4)  31 MAY 2019 17:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.5.4)  31 MAY 2019 18:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1059,34 +1059,25 @@ LaTeX Warning: Label `sec:LABEL_CHP_5_SUBSEC_C' multiply defined.
 LaTeX Warning: Label `sec:LABEL_CHP_5_SUBSEC_D' multiply defined.
 
 
-LaTeX Warning: Label `tab:my-table' multiply defined.
+LaTeX Warning: Label `tab:my-table-ils-ca' multiply defined.
 
 
-LaTeX Warning: Label `tab:my-table' multiply defined.
+LaTeX Warning: Label `tab:my-table-ils-ca' multiply defined.
 
 
-LaTeX Warning: Label `tab:my-table' multiply defined.
+LaTeX Warning: Label `tab:my-table-ils-cg' multiply defined.
 
 
-LaTeX Warning: Label `tab:my-table' multiply defined.
+LaTeX Warning: Label `tab:my-table-ils-cg' multiply defined.
 
 
-LaTeX Warning: Label `tab:my-table' multiply defined.
+LaTeX Warning: Label `tab:my-table-tabu-ca' multiply defined.
 
 
-LaTeX Warning: Label `tab:my-table' multiply defined.
+LaTeX Warning: Label `tab:my-table-tabu-ca' multiply defined.
 
 
-LaTeX Warning: Label `tab:my-table' multiply defined.
-
-
-LaTeX Warning: Label `tab:my-table' multiply defined.
-
-
-LaTeX Warning: Label `tab:my-table' multiply defined.
-
-
-LaTeX Warning: Label `tab:my-table' multiply defined.
+LaTeX Warning: Label `tab:my-table-tabu-cg' multiply defined.
 
 )
 \openout1 = `main.aux'.
@@ -1635,41 +1626,41 @@ Cap{\'i}tulo 7.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 49.
+(babel)             in language  on input line 50.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 49.
+(babel)             in language  on input line 50.
 [38
 
 ]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 60.
+(babel)             in language  on input line 61.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 60.
+(babel)             in language  on input line 61.
  [39]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 119.
+(babel)             in language  on input line 120.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 119.
+(babel)             in language  on input line 120.
  [40]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 119.
+(babel)             in language  on input line 120.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 119.
+(babel)             in language  on input line 120.
  [41]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 178.
+(babel)             in language  on input line 179.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 178.
+(babel)             in language  on input line 179.
  [42]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 178.
+(babel)             in language  on input line 179.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 178.
+(babel)             in language  on input line 179.
  [43]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 237.
+(babel)             in language  on input line 238.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 237.
+(babel)             in language  on input line 238.
  [44])
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 134.
@@ -1810,10 +1801,10 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 148.
  ) 
 Here is how much of TeX's memory you used:
- 21090 strings out of 494789
- 376038 string characters out of 6177365
- 473601 words of memory out of 5000000
- 23689 multiletter control sequences out of 15000+600000
+ 21093 strings out of 494789
+ 376110 string characters out of 6177365
+ 473750 words of memory out of 5000000
+ 23692 multiletter control sequences out of 15000+600000
  18387 words of font info for 47 fonts, out of 8000000 for 9000
  83 hyphenation exceptions out of 8191
  55i,20n,54p,2640b,878s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1835,7 +1826,7 @@ dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (60 pages, 363448 bytes).
+Output written on main.pdf (60 pages, 363503 bytes).
 PDF statistics:
  1310 PDF objects out of 1440 (max. 8388607)
  841 compressed objects within 9 object streams
