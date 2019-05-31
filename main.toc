@@ -4,8 +4,7 @@
 \contentsline {chapter}{Abstract}{iii}{chapter*.1}
 \contentsline {chapter}{Lista de Figuras}{iv}{chapter*.1}
 \contentsline {chapter}{Lista de Tabelas}{v}{chapter*.2}
-\contentsline {chapter}{Lista de C{\'o}digos}{vi}{chapter*.3}
-\contentsline {chapter}{Lista de Abreviaturas e Siglas}{vii}{chapter*.5}
+\contentsline {chapter}{Lista de Abreviaturas e Siglas}{vi}{chapter*.4}
 \contentsline {chapter}{\numberline {1}Introdu\IeC {\c c}\IeC {\~a}o}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Defini\IeC {\c c}\IeC {\~a}o formal do problema}{4}{section.1.1}
 \contentsline {chapter}{\numberline {2}Revis\IeC {\~a}o da literatura}{7}{chapter.2}
@@ -39,5 +38,6 @@
 \contentsline {subsection}{\numberline {6.3.4}Split}{33}{subsection.6.3.4}
 \contentsline {section}{\numberline {6.4}Representando a lista tabu}{33}{section.6.4}
 \contentsline {section}{\numberline {6.5}O algoritmo}{36}{section.6.5}
-\contentsline {chapter}{\numberline {7}Resultados}{38}{chapter.7}
-\contentsline {chapter}{Refer{\^e}ncias}{46}{table.7.4}
+\contentsline {chapter}{\numberline {7}Resultados}{39}{chapter.7}
+\contentsline {section}{\numberline {7.1}Par\IeC {\^a}metros utilizados nos algoritmos}{39}{section.7.1}
+\contentsline {chapter}{Refer{\^e}ncias}{49}{table.7.4}

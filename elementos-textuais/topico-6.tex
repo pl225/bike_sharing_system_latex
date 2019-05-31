@@ -113,7 +113,7 @@
 
 \section{O algoritmo}\label{sec:LABEL_CHP_6_SEC_E}
 
-\par Como já foi visto todo o conteúdo necessário, o procedimento principal da Busca Tabu elaborado encontra-se definido a seguir. As 5 primeiras linhas lidam com a inicialização dos principais componentes do algoritmo. A solução inicial poderá ser computada por um método guloso ou pelo construtor aleatório introduzido no capítulo \ref{chp:LABEL_CHP_3}. O laço principal continua até que a condição de número máximo de iterações sem melhora seja verdadeira, momento em que ele encerra sua execução.
+\par Como já foi visto todo o conteúdo necessário, o procedimento principal da Busca Tabu elaborado encontra-se definido a seguir. As 5 primeiras linhas lidam com a inicialização dos principais componentes do algoritmo. A solução inicial poderá ser computada por um método guloso ou pelo construtor aleatório introduzido no capítulo \ref{chp:LABEL_CHP_3}. O método guloso proposto por \citep{art:REF_ART_2} para a sua busca tabu consistia de escolher sempre a estação mais próxima, tendo em vista a distância da última estação adicionada à solução, que pode ter sua demanda levada a zero com apenas uma visita. Se nenhuma estação puder ser fechada duma só vez, a que possui o maior valor absoluto de entrega ou coleta de bicicletas é escolhida. Caso exista mais de uma candidata com essas características, a mais próxima é escolhida, ou seja, o mesmo critério usado para escolher uma estação que não pode ser fechada com apenas uma visita utilizado no construtor enunciado no capítulo \ref{chp:LABEL_CHP_3}. O laço principal continua até que a condição de número máximo de iterações sem melhora seja verdadeira, momento em que ele encerra sua execução.
 
 \par Como já determinado, o algoritmo abaixo não possui fase de perturbação. Nessas condições, se utilizado o procedimento RVND do capítulo \ref{chp:LABEL_CHP_3}, o algoritmo se resumiria a uma construção de uma solução inicial e a execução da busca local sobre ela. Sabe-se que o procedimento RVND retorna a melhor solução encontrada apenas quando nenhuma estrutura de vizinhança é capaz de melhorá-la. Se a solução dada como parâmetro de entrada já for a melhor, a mesma é retornada. Para que isso não ocorra, o procedimento RVND sofreu uma pequena adaptação, que acabou por originar o $RVND^*$. Quando da execução da primeira busca exaustiva por uma vizinhança qualquer para encontrar o melhor vizinho possível, o custo da solução resultante é comparado com o da solução atual, que no momento é aquela dada como argumento da função. Assim, o primeiro melhor custo do algoritmo é $f(s)$. Propôs-se o seguinte: o primeiro teste é feito com $f(\infty)$, o que permite que a primeira solução obtida sempre seja aceita. Com isso, o número de soluções candidatas possíveis após a primeira iteração torna-se grande novamente e o procedimento passa a produzir soluções diferentes como saída. Os experimentos a serem apresentados no próximo capítulo mostram que tal adaptação gerou bons resultados.
 
@@ -123,7 +123,7 @@
     \begin{algorithmic}[1]
     \REQUIRE Inteiro $l$, Inteiro $maxIteracoes$
     \ENSURE A melhor solução $s^*$ encontrada
-    \STATE $s \leftarrow$ solução inicial
+    \STATE $s \leftarrow$ solução inicial gulosa
     \STATE $s^* \leftarrow s$
     \STATE Tabu $tabu \leftarrow$ lista tabu vazia de tamanho $l$
     \STATE $atualizarListaTabu(tabu, s)$
